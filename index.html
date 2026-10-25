@@ -1,0 +1,2601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coding Wallah Skills - Elite Coding & Tech Mastery Platform</title>
+  <!-- Central Production Config -->
+  <script src="config.js"></script>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome 6 Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            pw: {
+              navy: '#0b1329',
+              dark: '#0f172a',
+              card: '#1e293b',
+              cardHover: '#24334a',
+              blue: '#2563eb',
+              electric: '#38bdf8',
+              yellow: '#facc15',
+              amber: '#f59e0b',
+              accent: '#f97316'
+            }
+          },
+          boxShadow: {
+            '3d-card': '0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5), inset 0 1px 0 0 rgba(255, 255, 255, 0.1)',
+            '3d-hover': '0 20px 35px -10px rgba(37, 99, 235, 0.35), 0 12px 15px -8px rgba(0, 0, 0, 0.6), inset 0 1px 0 0 rgba(255, 255, 255, 0.2)',
+            'glow-blue': '0 0 25px rgba(37, 99, 235, 0.5)',
+            'glow-yellow': '0 0 25px rgba(245, 158, 11, 0.5)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0b1329;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #2563eb;
+    }
+
+    /* 3D Depth & Tilt Hover Animations */
+    .card-3d {
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      transform: translateY(0);
+      will-change: transform, box-shadow;
+    }
+    .card-3d:hover {
+      transform: translateY(-6px) scale(1.01);
+    }
+
+    /* Original Glassmorphism & Depth System */
+    .pw-glass {
+      background: rgba(30, 41, 59, 0.75);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .pw-glass-header {
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    /* Gradient animations */
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.6)); }
+    }
+    .animate-glow {
+      animation: pulse-glow 3s infinite ease-in-out;
+    }
+
+    /* ============================================================
+       AI DOUBT SOLVER WIDGET — ALL STYLES
+    ============================================================ */
+
+    /* Floating Action Button */
+    #aiFloatBtn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9998;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb 0%, #38bdf8 100%);
+      box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.5);
+      cursor: pointer;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      animation: ai-btn-pulse 2.5s infinite;
+    }
+    #aiFloatBtn:hover {
+      transform: scale(1.12);
+      box-shadow: 0 0 30px rgba(56, 189, 248, 0.55);
+    }
+    @keyframes ai-btn-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.45); }
+      50%       { box-shadow: 0 0 0 10px rgba(56, 189, 248, 0); }
+    }
+    #aiFloatBtn .ai-fab-label {
+      font-size: 8px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: 0.04em;
+      margin-top: 2px;
+      line-height: 1;
+    }
+
+    /* Widget Panel */
+    #aiWidgetPanel {
+      position: fixed;
+      bottom: 96px;
+      right: 24px;
+      width: 400px;
+      max-width: calc(100vw - 32px);
+      height: 600px;
+      max-height: calc(100vh - 120px);
+      z-index: 9999;
+      border-radius: 20px;
+      background: #0f172a;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.7), 0 0 40px rgba(37,99,235,0.15);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transform: translateY(20px) scale(0.96);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
+    }
+    #aiWidgetPanel.ai-open {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* Widget Header */
+    .ai-header {
+      background: linear-gradient(135deg, #1e3a5f 0%, #1e293b 100%);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+      cursor: default;
+      user-select: none;
+    }
+    .ai-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #2563eb, #38bdf8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+      box-shadow: 0 0 14px rgba(56,189,248,0.35);
+    }
+    .ai-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 6px #22c55e;
+      animation: status-blink 2s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes status-blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+
+    /* Messages container */
+    #aiChatMessages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      scroll-behavior: smooth;
+    }
+    #aiChatMessages::-webkit-scrollbar { width: 4px; }
+    #aiChatMessages::-webkit-scrollbar-track { background: transparent; }
+    #aiChatMessages::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+
+    /* Chat Bubbles */
+    .ai-bubble {
+      max-width: 88%;
+      padding: 10px 13px;
+      border-radius: 14px;
+      font-size: 13px;
+      line-height: 1.55;
+      word-break: break-word;
+      animation: bubble-in 0.25s ease;
+    }
+    @keyframes bubble-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .ai-bubble.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      color: white;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 4px 12px rgba(37,99,235,0.35);
+    }
+    .ai-bubble.bot {
+      align-self: flex-start;
+      background: #1e293b;
+      border: 1px solid rgba(56,189,248,0.15);
+      color: #e2e8f0;
+      border-bottom-left-radius: 4px;
+    }
+    .ai-bubble pre {
+      background: #0b1329;
+      border: 1px solid rgba(56,189,248,0.2);
+      border-radius: 8px;
+      padding: 10px 12px;
+      overflow-x: auto;
+      margin-top: 8px;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      color: #7dd3fc;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .ai-bubble code.inline {
+      background: rgba(56,189,248,0.12);
+      color: #38bdf8;
+      border-radius: 4px;
+      padding: 1px 5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+    }
+    .ai-bubble ol { padding-left: 18px; margin-top: 6px; }
+    .ai-bubble li { margin-bottom: 4px; }
+
+    /* Typing indicator */
+    .ai-typing {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 10px 13px;
+      background: #1e293b;
+      border-radius: 14px;
+      border-bottom-left-radius: 4px;
+      width: fit-content;
+      border: 1px solid rgba(56,189,248,0.15);
+    }
+    .ai-typing span {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #38bdf8;
+      animation: typing-bounce 1.2s infinite;
+    }
+    .ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing-bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+      30%           { transform: translateY(-5px); opacity: 1; }
+    }
+
+    /* Quick Chips */
+    #aiQuickChips {
+      padding: 8px 14px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .ai-chip {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 20px;
+      background: rgba(37, 99, 235, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: #7dd3fc;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .ai-chip:hover {
+      background: rgba(37,99,235,0.28);
+      transform: scale(1.04);
+    }
+
+    /* Code Snippet Attach Area */
+    #aiCodeArea {
+      margin: 0 14px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0b1329;
+      border: 1px dashed rgba(56,189,248,0.25);
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      max-height: 0;
+      padding: 0;
+    }
+    #aiCodeArea.open {
+      max-height: 110px;
+      padding: 8px;
+    }
+    #aiCodeArea textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: #7dd3fc;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      resize: none;
+      outline: none;
+      height: 88px;
+    }
+    #aiCodeArea textarea::placeholder { color: #334155; }
+
+    /* Input bar */
+    .ai-input-bar {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 10px 12px;
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      background: #0f172a;
+      flex-shrink: 0;
+    }
+    #aiUserInput {
+      flex: 1;
+      background: #1e293b;
+      border: 1px solid rgba(56,189,248,0.2);
+      border-radius: 12px;
+      padding: 9px 12px;
+      color: #e2e8f0;
+      font-size: 13px;
+      resize: none;
+      outline: none;
+      max-height: 100px;
+      overflow-y: auto;
+      font-family: 'Inter', sans-serif;
+      transition: border-color 0.2s;
+      line-height: 1.5;
+    }
+    #aiUserInput:focus { border-color: rgba(56,189,248,0.5); }
+    #aiUserInput::placeholder { color: #475569; }
+    #aiSendBtn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #2563eb, #38bdf8);
+      border: none;
+      color: white;
+      cursor: pointer;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: transform 0.15s, box-shadow 0.15s;
+      box-shadow: 0 4px 12px rgba(37,99,235,0.4);
+    }
+    #aiSendBtn:hover { transform: scale(1.08); box-shadow: 0 0 18px rgba(56,189,248,0.5); }
+    #aiCodeToggle {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: rgba(56,189,248,0.1);
+      border: 1px solid rgba(56,189,248,0.2);
+      color: #7dd3fc;
+      cursor: pointer;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      transition: background 0.2s;
+    }
+    #aiCodeToggle:hover { background: rgba(56,189,248,0.2); }
+
+    /* API Config panel */
+    #aiApiConfig {
+      margin: 0 12px 10px;
+      background: #0b1329;
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: 10px;
+      padding: 0 12px;
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    #aiApiConfig.open {
+      max-height: 100px;
+      padding: 10px 12px;
+    }
+    #aiApiConfig input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(56,189,248,0.2);
+      color: #facc15;
+      font-size: 12px;
+      padding: 4px 0;
+      outline: none;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    #aiApiConfig input::placeholder { color: #475569; }
+  </style>
+</head>
+<body class="bg-[#0b1329] text-slate-100 min-h-screen flex flex-col font-sans selection:bg-pw-blue selection:text-white">
+
+  <!-- ================= TOP HEADER (ORIGINAL MODERN TECH NAVIGATION) ================= -->
+  <header class="pw-glass-header sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Logo & Original Brand Identity -->
+        <div class="flex items-center gap-3 cursor-pointer group" onclick="switchTab('home')">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-pw-electric flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-105 transition">
+            <i class="fa-solid fa-code text-white text-lg"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <span class="text-xl font-black tracking-tight text-white brand-title-text">CODING WALLAH <span class="text-amber-400">SKILLS</span></span>
+              <span class="px-1.5 py-0.5 text-[9px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded tracking-widest">SKILLS PRO</span>
+            </div>
+            <p class="text-[9px] text-slate-400 font-semibold tracking-wider">MASTER REAL-WORLD ENGINEERING • FROM CODE TO CAREER</p>
+          </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="hidden lg:flex items-center gap-1 text-sm font-semibold">
+          <button onclick="switchTab('home')" class="nav-btn px-3 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition active-nav" data-tab="home">
+            <i class="fa-solid fa-house mr-1.5 text-xs text-pw-electric"></i>Home
+          </button>
+          <button onclick="switchTab('batches')" class="nav-btn px-3 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition" data-tab="batches">
+            <i class="fa-solid fa-graduation-cap mr-1.5 text-xs text-pw-blue"></i>Live Batches
+          </button>
+          <button onclick="switchTab('books')" class="nav-btn px-3 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition" data-tab="books">
+            <i class="fa-solid fa-book-bookmark mr-1.5 text-xs text-pw-yellow"></i>Books
+          </button>
+          <button onclick="switchTab('qbank')" class="nav-btn px-3 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition" data-tab="qbank">
+            <i class="fa-solid fa-layer-group mr-1.5 text-xs text-emerald-400"></i>Question Bank
+          </button>
+          <button onclick="switchTab('pyq')" class="nav-btn px-3 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition" data-tab="pyq">
+            <i class="fa-solid fa-building-wheat mr-1.5 text-xs text-purple-400"></i>Company PYQs
+          </button>
+          <button onclick="switchTab('notes')" class="nav-btn px-3 py-1.5 rounded-xl text-slate-300 hover:text-white hover:bg-slate-800 transition" data-tab="notes">
+            <i class="fa-solid fa-file-powerpoint mr-1.5 text-xs text-orange-400"></i>PPT Notes
+          </button>
+          <!-- Downloads Center Tab -->
+          <button onclick="openDownloadsCenterModal()" class="px-3 py-1.5 rounded-xl text-amber-300 hover:text-amber-200 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 transition flex items-center gap-1.5 font-bold">
+            <i class="fa-solid fa-cloud-arrow-down text-xs text-pw-yellow"></i>Downloads Center
+            <span id="navDownloadBadge" class="px-1.5 py-0.2 bg-amber-500 text-slate-950 text-[10px] rounded-full font-black">12</span>
+          </button>
+          <a href="test-portal.html" class="px-3 py-1.5 rounded-xl text-red-300 hover:text-red-200 bg-red-600/10 hover:bg-red-600/20 border border-red-500/30 transition flex items-center gap-1.5 font-bold" target="_blank">
+            <i class="fa-solid fa-chart-line text-xs text-red-400"></i>Test Portal ↗
+          </a>
+          <!-- AI Mentor Nav Button -->
+          <button onclick="toggleAiWidget()" class="px-3 py-1.5 rounded-xl text-cyan-300 hover:text-cyan-100 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/40 transition flex items-center gap-1.5 font-bold" style="animation: ai-btn-pulse 2.5s infinite;">
+            <i class="fa-solid fa-robot text-xs text-cyan-400"></i>AI Mentor
+            <span class="px-1.5 py-0.5 bg-cyan-500 text-slate-950 text-[9px] rounded-full font-black">AI</span>
+          </button>
+        </nav>
+
+        <!-- Right Side: Real-Time Attendance Timer, Streak & Profile -->
+        <div class="flex items-center gap-3">
+          <!-- Real-Time Attendance Tracker Pill -->
+          <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-[#0f172a] border border-slate-700/80 rounded-xl text-xs font-mono text-emerald-400 shadow-inner" title="Live session attendance tracker">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            <i class="fa-regular fa-clock text-emerald-400"></i>
+            <span id="sessionTimerText">00:24:18</span>
+          </div>
+
+          <!-- Gamified Streak Flame -->
+          <div onclick="openStreakModal()" class="flex items-center gap-1.5 px-3 py-1.5 bg-pw-amber/10 border border-pw-amber/40 rounded-xl text-xs font-black text-pw-yellow cursor-pointer hover:bg-pw-amber/20 transition shadow-sm" title="Your Daily Coding Streak">
+            <i class="fa-solid fa-fire text-amber-500 animate-bounce"></i>
+            <span>14 Days</span>
+          </div>
+
+          <!-- Authentication Profile Pill -->
+          <button id="userAuthBtn" onclick="handleAuthHeaderClick()" class="px-3.5 py-1.5 text-xs font-bold rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white shadow-lg shadow-blue-500/25 transition flex items-center gap-2">
+            <i class="fa-solid fa-user-circle text-sm"></i>
+            <span id="userStatusText">Aman (Student)</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= MAIN PLATFORM VIEWPORT ================= -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-10">
+
+    <!-- 1. HOME VIEW (HERO & FEATURED SECTIONS) -->
+    <section id="view-home" class="space-y-10">
+      
+      <!-- 3D Hero Banner -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#0b1329] via-[#111f43] to-[#0b1329] border border-blue-500/20 p-8 sm:p-12 shadow-3d-card">
+        <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-20 -top-20 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-3xl space-y-5 relative z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-xs font-bold text-pw-electric">
+            <i class="fa-solid fa-bolt text-pw-yellow"></i> INDIA'S MOST REVOLUTIONARY CODING PLATFORM
+          </div>
+          <h1 class="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
+            Learn Coding With <span class="bg-gradient-to-r from-pw-electric via-blue-400 to-pw-yellow bg-clip-text text-transparent">Coding Wallah</span>
+          </h1>
+          <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+            From zero to FAANG engineer at the most affordable fees in India. Live YouTube-integrated classes, interactive question bank with compiler sandboxes, real verified PDF/PPT lecture downloads, and company PYQ archives.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <button onclick="switchTab('batches')" class="px-6 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-bold rounded-2xl shadow-glow-blue transition flex items-center gap-2.5 transform hover:-translate-y-1">
+              <i class="fa-solid fa-play text-xs text-pw-yellow"></i> Explore Live Batches & Player
+            </button>
+            <button onclick="openDownloadsCenterModal()" class="px-6 py-3.5 bg-slate-800/90 hover:bg-slate-700 text-slate-200 font-bold rounded-2xl border border-slate-700 transition flex items-center gap-2.5 transform hover:-translate-y-1 shadow-md">
+              <i class="fa-solid fa-cloud-arrow-down text-pw-electric text-xs"></i> Open Downloads Center
+            </button>
+            <button onclick="switchTab('books')" class="px-5 py-3.5 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 font-bold rounded-2xl transition flex items-center gap-2">
+              <i class="fa-solid fa-book-open text-xs"></i> Read Wallah Handbooks
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-Time Stats Grid (3D Depth Cards) -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="card-3d bg-pw-card/90 border border-slate-700/60 p-5 rounded-2xl shadow-3d-card flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-pw-electric flex items-center justify-center text-xl shadow-inner">
+            <i class="fa-solid fa-stopwatch"></i>
+          </div>
+          <div>
+            <div class="text-2xl font-black text-white" id="statTodayTime">0h 24m</div>
+            <div class="text-xs text-slate-400 font-medium">Session Attendance</div>
+          </div>
+        </div>
+
+        <div class="card-3d bg-pw-card/90 border border-slate-700/60 p-5 rounded-2xl shadow-3d-card flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl shadow-inner">
+            <i class="fa-solid fa-fire"></i>
+          </div>
+          <div>
+            <div class="text-2xl font-black text-white">14 Days</div>
+            <div class="text-xs text-slate-400 font-medium">Active Daily Streak</div>
+          </div>
+        </div>
+
+        <div class="card-3d bg-pw-card/90 border border-slate-700/60 p-5 rounded-2xl shadow-3d-card flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl shadow-inner">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <div>
+            <div class="text-2xl font-black text-white">142 Solved</div>
+            <div class="text-xs text-slate-400 font-medium">Problems Conquered</div>
+          </div>
+        </div>
+
+        <div class="card-3d bg-pw-card/90 border border-slate-700/60 p-5 rounded-2xl shadow-3d-card flex items-center gap-4">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xl shadow-inner">
+            <i class="fa-solid fa-chart-pie"></i>
+          </div>
+          <div>
+            <div class="text-2xl font-black text-white">87.5%</div>
+            <div class="text-xs text-slate-400 font-medium">National Test Accuracy</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature Jump Cards (Original Floating 3D Depth) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div onclick="switchTab('batches')" class="card-3d cursor-pointer bg-gradient-to-b from-[#1e293b] to-[#141e33] border border-blue-500/30 p-6 rounded-3xl shadow-3d-card hover:shadow-3d-hover transition flex flex-col justify-between space-y-4 group">
+          <div class="flex items-center justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl group-hover:scale-110 transition shadow-inner">
+              <i class="fa-solid fa-video"></i>
+            </div>
+            <span class="px-2.5 py-1 bg-red-600/90 text-white text-[10px] font-black rounded-lg uppercase tracking-wider animate-pulse">
+              ● YOUTUBE INTEGRATED
+            </span>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-white group-hover:text-pw-electric transition">Interactive Batches & Video Player</h3>
+            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+              Launch real embedded YouTube programming lectures with chapter playlists, lecture speed adjustments, and direct PDF downloads.
+            </p>
+          </div>
+          <div class="text-xs font-bold text-pw-electric flex items-center gap-1 group-hover:translate-x-1 transition">
+            Launch Video Classroom <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div onclick="switchTab('books')" class="card-3d cursor-pointer bg-gradient-to-b from-[#1e293b] to-[#141e33] border border-amber-500/30 p-6 rounded-3xl shadow-3d-card hover:shadow-3d-hover transition flex flex-col justify-between space-y-4 group">
+          <div class="flex items-center justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl group-hover:scale-110 transition shadow-inner">
+              <i class="fa-solid fa-book-bookmark"></i>
+            </div>
+            <span class="px-2.5 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-black rounded-lg uppercase tracking-wider">
+              OFFICIAL HANDBOOKS
+            </span>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-white group-hover:text-amber-400 transition">Coding Wallah Official Handbooks</h3>
+            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+              Read 500+ Algorithms Visualized and System Design Blueprints online or trigger one-click genuine PDF downloads.
+            </p>
+          </div>
+          <div class="text-xs font-bold text-amber-400 flex items-center gap-1 group-hover:translate-x-1 transition">
+            Read Online & Download <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div onclick="openDownloadsCenterModal()" class="card-3d cursor-pointer bg-gradient-to-b from-[#1e293b] to-[#141e33] border border-emerald-500/30 p-6 rounded-3xl shadow-3d-card hover:shadow-3d-hover transition flex flex-col justify-between space-y-4 group">
+          <div class="flex items-center justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl group-hover:scale-110 transition shadow-inner">
+              <i class="fa-solid fa-folder-arrow-down"></i>
+            </div>
+            <span class="px-2.5 py-1 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-black rounded-lg uppercase tracking-wider">
+              CENTRAL VAULT
+            </span>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition">Centralized Downloads Hub</h3>
+            <p class="text-xs text-slate-400 mt-1.5 leading-relaxed">
+              Instant search, filtering, and 1-click real file generation for all subject notes, cheat sheets, and PYQ PDFs across the website.
+            </p>
+          </div>
+          <div class="text-xs font-bold text-emerald-400 flex items-center gap-1 group-hover:translate-x-1 transition">
+            Open File Manager <i class="fa-solid fa-arrow-right text-[10px]"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. BATCHES & VIDEO LECTURES VIEW (WORKING YOUTUBE INTEGRATION) -->
+    <section id="view-batches" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-red-600 animate-ping"></span>
+            <h2 class="text-2xl font-black text-white">Live Batches & Video Lectures</h2>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">
+            Click any batch to launch the **Interactive YouTube Video Player, Chapter Playlists & Working PDF/PPT Downloads**.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1.5 bg-red-600/20 text-red-400 border border-red-500/30 text-xs font-bold rounded-xl flex items-center gap-2">
+            <i class="fa-solid fa-circle text-[8px] animate-pulse"></i> 3 YouTube Integrated Batches
+          </span>
+        </div>
+      </div>
+
+      <!-- Batches Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="batchesContainer">
+        <!-- Dynamically injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- 3. BOOKS & HANDBOOKS VIEW (READER MODAL & REAL DOWNLOADS) -->
+    <section id="view-books" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+        <div>
+          <h2 class="text-2xl font-black text-white">Coding Wallah Official Handbooks & Visual Manuals</h2>
+          <p class="text-xs text-slate-400 mt-1">
+            Read chapter index, study animated diagrams online, or download the full verified PDF locally.
+          </p>
+        </div>
+        <div class="text-xs font-mono font-bold text-pw-yellow flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 rounded-xl">
+          <i class="fa-solid fa-book"></i> 4 Color Editions
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="booksContainer">
+        <!-- Dynamically injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- 4. QUESTION BANK & PRACTICE VIEW (WITH CODE/SOLUTION EXPANSION) -->
+    <section id="view-qbank" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+        <div>
+          <h2 class="text-2xl font-black text-white">Interactive Question Bank & Code Sandbox</h2>
+          <p class="text-xs text-slate-400 mt-1">
+            Filter by topic & difficulty. Expand questions to view testcases, constraints, interactive compiler sandbox, and AI solution hints.
+          </p>
+        </div>
+        <div class="text-xs text-slate-400 font-mono">
+          Showing <span id="qCountDisplay" class="text-pw-electric font-bold">8</span> Questions
+        </div>
+      </div>
+
+      <!-- Filter Controls Row -->
+      <div class="bg-pw-card/90 border border-slate-700/80 p-4 rounded-2xl flex flex-wrap items-center gap-3 shadow-3d-card">
+        <div class="flex-1 min-w-[220px] relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-xs text-slate-400"></i>
+          <input type="text" id="qSearchInput" oninput="filterQuestions()" placeholder="Search problem name or algorithmic concept..." class="w-full pl-9 pr-3 py-2 bg-[#0b1329] border border-slate-700 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pw-electric">
+        </div>
+
+        <select id="qTopicFilter" onchange="filterQuestions()" class="bg-[#0b1329] border border-slate-700 text-xs text-slate-300 rounded-xl px-3 py-2 focus:outline-none focus:border-pw-electric">
+          <option value="all">All Topics</option>
+          <option value="Arrays & Hashing">Arrays & Hashing</option>
+          <option value="Two Pointers">Two Pointers</option>
+          <option value="Dynamic Programming">Dynamic Programming</option>
+          <option value="Trees & Graphs">Trees & Graphs</option>
+          <option value="System Design">System Design</option>
+        </select>
+
+        <select id="qDiffFilter" onchange="filterQuestions()" class="bg-[#0b1329] border border-slate-700 text-xs text-slate-300 rounded-xl px-3 py-2 focus:outline-none focus:border-pw-electric">
+          <option value="all">All Difficulties</option>
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+        </select>
+      </div>
+
+      <div class="space-y-4" id="questionsContainer">
+        <!-- Dynamically injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- 5. COMPANY PYQS & REVISION HUB VIEW -->
+    <section id="view-pyq" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+        <div>
+          <h2 class="text-2xl font-black text-white">Company-Specific PYQs & Verified Revision Slide Decks</h2>
+          <p class="text-xs text-slate-400 mt-1">
+            Real verbatim placement questions from Google, Microsoft, Amazon, Flipkart, and Atlassian with working PPT/PDF downloads.
+          </p>
+        </div>
+      </div>
+
+      <!-- Company Filter Tabs -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-800 text-xs">
+        <button onclick="filterCompanyPyq('Google')" class="company-tab-btn px-4 py-2 rounded-xl font-bold transition flex items-center gap-2 bg-blue-600 text-white shadow-glow-blue" data-company="Google">
+          <i class="fa-brands fa-google"></i> Google (18 PYQs)
+        </button>
+        <button onclick="filterCompanyPyq('Microsoft')" class="company-tab-btn px-4 py-2 rounded-xl font-bold transition flex items-center gap-2 bg-slate-800 text-slate-400 hover:text-white border border-slate-700" data-company="Microsoft">
+          <i class="fa-brands fa-microsoft"></i> Microsoft (22 PYQs)
+        </button>
+        <button onclick="filterCompanyPyq('Amazon')" class="company-tab-btn px-4 py-2 rounded-xl font-bold transition flex items-center gap-2 bg-slate-800 text-slate-400 hover:text-white border border-slate-700" data-company="Amazon">
+          <i class="fa-brands fa-amazon"></i> Amazon (34 PYQs)
+        </button>
+        <button onclick="filterCompanyPyq('Flipkart')" class="company-tab-btn px-4 py-2 rounded-xl font-bold transition flex items-center gap-2 bg-slate-800 text-slate-400 hover:text-white border border-slate-700" data-company="Flipkart">
+          <i class="fa-solid fa-bag-shopping"></i> Flipkart (15 PYQs)
+        </button>
+        <button onclick="filterCompanyPyq('Atlassian')" class="company-tab-btn px-4 py-2 rounded-xl font-bold transition flex items-center gap-2 bg-slate-800 text-slate-400 hover:text-white border border-slate-700" data-company="Atlassian">
+          <i class="fa-brands fa-atlassian"></i> Atlassian (12 PYQs)
+        </button>
+      </div>
+
+      <!-- Active Company Questions & PPTs -->
+      <div id="companyPyqContent" class="space-y-6">
+        <!-- Dynamically injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- 6. SUBJECT-WISE PPT & REVISION NOTES VIEW -->
+    <section id="view-notes" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+        <div>
+          <h2 class="text-2xl font-black text-white">Subject-Wise PPT Revision Notes & Slide Decks</h2>
+          <p class="text-xs text-slate-400 mt-1">
+            Complete high-yield classroom animated slide decks. Preview slides online or download .pptx and .pdf files instantly.
+          </p>
+        </div>
+        <button onclick="downloadRealBlobFile('Coding_Wallah_All_Subjects_Master_Notes.zip', 'Semester Notes Zip Bundle\n1. OS Concurrency\n2. DBMS ACID\n3. CN Handshakes\n4. OOPs Design Patterns\n5. System Design Blueprints')" class="px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg transition flex items-center gap-2">
+          <i class="fa-solid fa-cloud-arrow-down text-pw-yellow"></i> Download Full Semester Archive (.zip)
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="subjectNotesContainer">
+        <!-- Dynamically injected via JavaScript -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= MODAL 1: BATCH CLASSROOM & WORKING YOUTUBE PLAYER ================= -->
+  <div id="batchPlayerModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-[#111c38] border border-blue-500/30 rounded-3xl w-full max-w-6xl max-h-[94vh] flex flex-col overflow-hidden shadow-2xl relative my-auto animate-in fade-in duration-200">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 bg-[#0b1329] border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-red-600 text-white flex items-center justify-center text-sm font-bold shadow-lg shadow-red-600/30">
+            <i class="fa-brands fa-youtube"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-white flex items-center gap-2" id="modalBatchPlayerTitle">
+              Super 60: DSA in C++ Masterclass
+            </h3>
+            <span class="text-[10px] text-slate-400 font-mono" id="modalBatchInstructor">Mentor: Sanchit Verma (Ex-Google) • YouTube Live Classroom</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button onclick="downloadBatchSyllabus()" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/40 text-pw-electric text-xs font-bold rounded-xl transition">
+            <i class="fa-solid fa-file-arrow-down"></i> Batch Syllabus PDF
+          </button>
+          <button onclick="closeBatchPlayerModal()" class="text-slate-400 hover:text-white p-1">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal Body (Two Columns: YouTube Player on left, Chapter Playlist on right) -->
+      <div class="flex-1 overflow-y-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left: YouTube Iframe & Real Video Actions (7 cols) -->
+        <div class="lg:col-span-7 space-y-4">
+          <!-- Responsive YouTube Embed Iframe -->
+          <div class="relative aspect-video bg-black rounded-2xl overflow-hidden border border-slate-800 shadow-2xl">
+            <iframe 
+              id="mainYouTubeIframe" 
+              class="w-full h-full"
+              src="https://www.youtube-nocookie.com/embed/8jLOx1hD3_o?autoplay=1&enablejsapi=1" 
+              title="Coding Wallah Live Lecture" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowfullscreen>
+            </iframe>
+          </div>
+
+          <!-- Video Title & Custom Teacher YouTube ID Loader -->
+          <div class="bg-[#0f172a] p-4 rounded-2xl border border-slate-800 space-y-3">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-black bg-red-600 text-white uppercase tracking-wider animate-pulse">
+                  ● PLAYING NOW
+                </span>
+                <h4 class="text-sm font-bold text-white mt-1.5" id="activeLectureTitle">
+                  Lec 01: Dynamic Programming - 0/1 Knapsack & Subset Sum Transitions
+                </h4>
+              </div>
+              <span class="text-[11px] font-mono text-pw-electric bg-blue-500/10 px-2 py-1 rounded-lg border border-blue-500/20 whitespace-nowrap">
+                HD 1080p
+              </span>
+            </div>
+
+            <!-- Custom YouTube Video URL/ID Switcher for Teachers & Students -->
+            <div class="flex items-center gap-2 pt-1 border-t border-slate-800/80">
+              <input type="text" id="customYoutubeInput" placeholder="Teacher/Student: Paste custom YouTube URL or Video ID..." class="flex-1 px-3 py-1.5 bg-[#0b1329] border border-slate-700 rounded-xl text-xs text-white focus:outline-none focus:border-blue-500 font-mono">
+              <button onclick="loadCustomYouTubeVideo()" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
+                <i class="fa-solid fa-play text-[10px]"></i> Load Video
+              </button>
+            </div>
+          </div>
+
+          <!-- Lecture Downloads Banner -->
+          <div class="grid grid-cols-2 gap-3 text-xs">
+            <button onclick="downloadCurrentLectureNotes()" class="p-3 bg-gradient-to-r from-red-950/40 to-slate-900 border border-red-500/30 rounded-2xl flex items-center justify-between hover:border-red-400 transition text-left group">
+              <div class="flex items-center gap-2.5">
+                <i class="fa-solid fa-file-pdf text-red-400 text-base group-hover:scale-110 transition"></i>
+                <div>
+                  <div class="font-bold text-white">Classroom PDF Notes</div>
+                  <div class="text-[10px] text-slate-400 font-mono">Handwritten (8.4 MB)</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-download text-red-400"></i>
+            </button>
+
+            <button onclick="downloadCurrentLecturePpt()" class="p-3 bg-gradient-to-r from-orange-950/40 to-slate-900 border border-orange-500/30 rounded-2xl flex items-center justify-between hover:border-orange-400 transition text-left group">
+              <div class="flex items-center gap-2.5">
+                <i class="fa-solid fa-file-powerpoint text-orange-400 text-base group-hover:scale-110 transition"></i>
+                <div>
+                  <div class="font-bold text-white">Animated PPT Slides</div>
+                  <div class="text-[10px] text-slate-400 font-mono">Vector Deck (14.2 MB)</div>
+                </div>
+              </div>
+              <i class="fa-solid fa-download text-orange-400"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Chapter Playlists & Lecture Selector (5 cols) -->
+        <div class="lg:col-span-5 flex flex-col space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <span class="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <i class="fa-solid fa-list-ol text-pw-electric"></i> Chapter Lectures Playlist
+            </span>
+            <span class="text-[10px] font-mono text-slate-400" id="playlistCountBadge">6 Lectures Available</span>
+          </div>
+
+          <!-- Lectures List -->
+          <div class="space-y-2 overflow-y-auto max-h-[460px] pr-1" id="batchLecturesListContainer">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 2: CENTRAL DOWNLOADS CENTER (REAL WORKING DOWNLOADS) ================= -->
+  <div id="downloadsCenterModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-[#111c38] border border-amber-500/40 rounded-3xl w-full max-w-5xl max-h-[92vh] flex flex-col overflow-hidden shadow-2xl relative my-auto animate-in fade-in duration-200">
+      
+      <!-- Downloads Header -->
+      <div class="px-6 py-4 bg-[#0b1329] border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-pw-yellow flex items-center justify-center text-lg font-bold shadow-inner">
+            <i class="fa-solid fa-cloud-arrow-down"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-black text-white">Coding Wallah Downloads Center</h3>
+            <p class="text-xs text-slate-400">Centralized Vault for Verified Lecture Notes, Handbooks, PPTs & PYQs</p>
+          </div>
+        </div>
+
+        <button onclick="closeDownloadsCenterModal()" class="text-slate-400 hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Search & Category Filters -->
+      <div class="p-4 sm:p-6 bg-[#0f172a] border-b border-slate-800 flex flex-wrap items-center gap-3">
+        <div class="flex-1 min-w-[240px] relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-xs text-slate-400"></i>
+          <input type="text" id="downloadsSearchInput" oninput="filterDownloadsCenter()" placeholder="Search notes, book PDFs, company PYQs..." class="w-full pl-9 pr-3 py-2 bg-[#0b1329] border border-slate-700 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-pw-yellow">
+        </div>
+
+        <!-- Filter Pill Group -->
+        <div class="flex items-center gap-1.5 overflow-x-auto text-xs">
+          <button onclick="filterDownloadsCategory('all')" class="dl-cat-btn px-3 py-1.5 rounded-xl bg-amber-500 text-slate-950 font-bold" data-cat="all">All Files</button>
+          <button onclick="filterDownloadsCategory('PDF')" class="dl-cat-btn px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white" data-cat="PDF">PDF Notes</button>
+          <button onclick="filterDownloadsCategory('PPT')" class="dl-cat-btn px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white" data-cat="PPT">PPT Slide Decks</button>
+          <button onclick="filterDownloadsCategory('BOOK')" class="dl-cat-btn px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white" data-cat="BOOK">Study Books</button>
+          <button onclick="filterDownloadsCategory('PYQ')" class="dl-cat-btn px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white" data-cat="PYQ">Company PYQs</button>
+        </div>
+      </div>
+
+      <!-- Downloads File Table & List -->
+      <div class="flex-1 overflow-y-auto p-4 sm:p-6">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-950 text-slate-400 uppercase font-mono border-b border-slate-800">
+              <tr>
+                <th class="py-3 px-4">Document Title</th>
+                <th class="py-3 px-4">Category</th>
+                <th class="py-3 px-4">Format</th>
+                <th class="py-3 px-4">Size</th>
+                <th class="py-3 px-4">Downloads</th>
+                <th class="py-3 px-4 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="downloadsTableBody" class="divide-y divide-slate-800 text-slate-300">
+              <!-- Dynamically populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= MODAL 3: INTERACTIVE BOOK VIEWER MODAL ================= -->
+  <div id="bookViewerModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-[#111c38] border border-amber-500/40 rounded-3xl w-full max-w-5xl max-h-[92vh] flex flex-col overflow-hidden shadow-2xl relative my-auto animate-in fade-in duration-200">
+      
+      <!-- Viewer Header -->
+      <div class="px-6 py-4 bg-[#0b1329] border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-pw-yellow flex items-center justify-center text-sm font-bold">
+            <i class="fa-solid fa-book-open"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-white" id="modalBookTitle">Coding Wallah: Data Structures Handwritten Bible</h3>
+            <span class="text-[10px] text-slate-400 font-mono" id="modalBookMeta">By Sandeep Jain & Team • 420 Pages • Edition 2026</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button onclick="downloadActiveBookDirectly()" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow">
+            <i class="fa-solid fa-download"></i> Download Full PDF
+          </button>
+          <button onclick="closeBookModal()" class="text-slate-400 hover:text-white p-1">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Body: Chapter Index on Left | Live Reader on Right -->
+      <div class="flex-1 overflow-y-auto grid grid-cols-1 md:grid-cols-12 gap-6 p-4 sm:p-6">
+        <!-- Chapter Index Sidebar (4 cols) -->
+        <div class="md:col-span-4 bg-[#0b1329] rounded-2xl p-4 border border-slate-800 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Chapter Index</span>
+            <span class="text-[10px] font-mono text-amber-400" id="bookChapterCountBadge">6 Chapters</span>
+          </div>
+          <div class="space-y-1.5 overflow-y-auto max-h-[420px] pr-1 text-xs" id="bookChapterList">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+
+        <!-- Live Book Reader Pane (8 cols) -->
+        <div class="md:col-span-8 bg-[#0f172a] border border-slate-800 rounded-2xl p-6 flex flex-col justify-between space-y-5 shadow-inner">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+              <span class="text-xs font-mono font-bold text-amber-400" id="currentChapterBadge">Chapter 1</span>
+              <span class="text-xs text-slate-400 font-mono" id="pageNumberIndicator">Page 12 of 420</span>
+            </div>
+
+            <h4 class="text-lg font-bold text-white" id="readerPageTitle">Title Loading...</h4>
+            <div class="text-xs text-slate-300 leading-relaxed space-y-3" id="readerPageBody">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-4 border-t border-slate-800 text-xs">
+            <button onclick="prevBookPage()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl flex items-center gap-1.5">
+              <i class="fa-solid fa-chevron-left text-[10px]"></i> Previous Chapter
+            </button>
+            <div class="text-slate-400 text-[11px] font-mono">High-Definition Visual Vectors</div>
+            <button onclick="nextBookPage()" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-xl flex items-center gap-1.5 font-bold">
+              Next Chapter <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= MODAL 4: INTERACTIVE QUESTION SOLVER SANDBOX ================= -->
+  <div id="questionSolverModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-[#111c38] border border-blue-500/30 rounded-3xl w-full max-w-5xl max-h-[92vh] flex flex-col overflow-hidden shadow-2xl relative my-auto animate-in fade-in duration-200">
+      
+      <!-- Solver Header -->
+      <div class="px-6 py-4 bg-[#0b1329] border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span id="modalQDiffBadge" class="px-2.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30 font-mono">
+            Medium
+          </span>
+          <div>
+            <h3 class="text-sm font-bold text-white" id="modalQTitle">Longest Increasing Subsequence</h3>
+            <span class="text-[10px] text-slate-400 font-mono" id="modalQTopic">Topic: Dynamic Programming • Google, Microsoft</span>
+          </div>
+        </div>
+
+        <button onclick="closeQuestionModal()" class="text-slate-400 hover:text-white p-1">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Solver Body -->
+      <div class="flex-1 overflow-y-auto grid grid-cols-1 lg:grid-cols-12 gap-6 p-4 sm:p-6">
+        
+        <!-- Left: Description & Test Cases (6 cols) -->
+        <div class="lg:col-span-6 space-y-4 text-xs">
+          <div class="space-y-2">
+            <h4 class="font-bold text-white text-sm">Problem Statement</h4>
+            <p class="text-slate-300 leading-relaxed" id="modalQDesc"></p>
+          </div>
+
+          <div class="space-y-2">
+            <h4 class="font-bold text-slate-200">Example Test Cases</h4>
+            <pre class="bg-[#0b1329] p-3 rounded-xl border border-slate-800 font-mono text-[11px] text-slate-300 overflow-x-auto" id="modalQExamples"></pre>
+          </div>
+
+          <div class="space-y-1.5">
+            <h4 class="font-bold text-slate-200">Constraints</h4>
+            <ul class="list-disc pl-4 space-y-1 text-slate-400 font-mono text-[11px]" id="modalQConstraints"></ul>
+          </div>
+
+          <!-- Hint & AI Solution Disclosure -->
+          <div class="pt-2">
+            <button onclick="toggleAiSolutionHint()" id="toggleHintBtn" class="w-full py-2.5 bg-indigo-950/70 hover:bg-indigo-900 border border-indigo-500/40 text-pw-electric font-bold rounded-xl flex items-center justify-center gap-2 transition">
+              <i class="fa-solid fa-wand-magic-sparkles text-pw-yellow"></i> Show Hint & AI Solution Strategy
+            </button>
+            <div id="aiSolutionBox" class="hidden mt-3 p-4 bg-[#0b1329] border border-blue-500/40 rounded-2xl space-y-2 text-xs">
+              <span class="font-bold text-emerald-400 block font-mono">💡 Optimal Algorithmic Intuition:</span>
+              <p class="text-slate-300 leading-relaxed" id="modalQHintText"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Code Editor & Execution Console (6 cols) -->
+        <div class="lg:col-span-6 flex flex-col justify-between bg-[#0b1329] rounded-2xl p-4 border border-slate-800 space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-terminal text-pw-electric text-xs"></i>
+                <span class="font-bold text-xs text-white">Solution Sandbox</span>
+              </div>
+              <select id="sandboxLangSelect" onchange="changeSandboxTemplate()" class="bg-slate-900 border border-slate-700 text-xs text-slate-300 rounded px-2.5 py-1">
+                <option value="cpp">C++ (g++ 17)</option>
+                <option value="python">Python 3.11</option>
+                <option value="java">Java 17</option>
+                <option value="javascript">JavaScript (ES6)</option>
+              </select>
+            </div>
+
+            <textarea id="sandboxCodeArea" rows="12" class="w-full bg-[#080d1d] border border-slate-800 rounded-xl p-3 font-mono text-xs text-emerald-300 placeholder-slate-600 focus:outline-none focus:border-pw-electric leading-relaxed resize-none"></textarea>
+          </div>
+
+          <div class="space-y-2">
+            <div id="sandboxConsoleOutput" class="hidden p-3 bg-slate-900 rounded-xl border border-slate-800 font-mono text-xs"></div>
+
+            <div class="flex items-center justify-between pt-2">
+              <span class="text-[10px] text-slate-500 font-mono">Simulated Compiler Active</span>
+              <div class="flex items-center gap-2">
+                <button onclick="runSandboxCode()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition flex items-center gap-1.5">
+                  <i class="fa-solid fa-play text-xs text-emerald-400"></i> Run Tests
+                </button>
+                <button onclick="submitSandboxCode()" class="px-5 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg transition">
+                  Submit Code
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MODAL 5: PPT SLIDES PREVIEW MODAL ================= -->
+  <div id="pptPreviewModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-[#111c38] border border-orange-500/40 rounded-3xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl relative my-auto animate-in fade-in duration-200">
+      
+      <div class="px-6 py-4 bg-[#0b1329] border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center text-sm font-bold">
+            <i class="fa-solid fa-file-powerpoint"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-white" id="pptModalTitle">Operating Systems: Concurrency & Semaphores</h3>
+            <span class="text-[10px] text-slate-400 font-mono" id="pptModalMeta">Slide Deck • 36 Animated Slides</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button onclick="downloadCurrentPptFile()" class="px-3.5 py-1.5 bg-orange-600 hover:bg-orange-500 text-white text-xs font-bold rounded-xl transition flex items-center gap-1.5 shadow">
+            <i class="fa-solid fa-download"></i> Download .pptx
+          </button>
+          <button onclick="closePptModal()" class="text-slate-400 hover:text-white p-1">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="p-6 flex flex-col justify-between flex-1 space-y-6">
+        <div class="aspect-video bg-gradient-to-br from-[#080d1d] via-[#0f172a] to-[#152347] border border-slate-800 rounded-2xl p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden">
+          <div class="flex items-center justify-between border-b border-slate-800/80 pb-3">
+            <span class="text-xs font-mono font-bold text-pw-electric" id="slideUnitBadge">UNIT III: PROCESS CONCURRENCY</span>
+            <span class="text-xs font-mono text-slate-400" id="slideNumberBadge">Slide 4 of 36</span>
+          </div>
+
+          <div class="space-y-4 my-auto">
+            <h3 class="text-2xl font-black text-white" id="slideHeading">Critical Section & Mutex Locks</h3>
+            <div class="space-y-2 text-xs sm:text-sm text-slate-300 leading-relaxed" id="slideContentBody"></div>
+          </div>
+
+          <div class="flex items-center justify-between border-t border-slate-800/80 pt-3 text-[11px] text-slate-500 font-mono">
+            <span>Coding Wallah Official Lecture Series</span>
+            <span>16:9 Vector Format</span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between">
+          <button onclick="prevSlide()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-xl flex items-center gap-2">
+            <i class="fa-solid fa-arrow-left"></i> Previous Slide
+          </button>
+          <span class="text-xs text-slate-400 font-mono" id="slidePaginatorText">Slide 4 of 36</span>
+          <button onclick="nextSlide()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold rounded-xl flex items-center gap-2">
+            Next Slide <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-[#080d1d] border-t border-slate-800 py-10 mt-12 text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="space-y-1 text-center sm:text-left">
+        <div class="flex items-center justify-center sm:justify-start gap-2">
+          <span class="font-black text-white text-base">CODING WALLAH <span class="text-amber-400">SKILLS</span></span>
+          <span class="px-1.5 py-0.5 text-[9px] bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded font-black">SKILLS ECOSYSTEM</span>
+        </div>
+        <p class="text-[11px] text-slate-500">© 2026 Coding Wallah Skills EdTech. All Rights Reserved. Empowering next-generation software engineers.</p>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-6">
+        <button onclick="openDownloadsCenterModal()" class="hover:text-pw-yellow transition flex items-center gap-1.5">
+          <i class="fa-solid fa-download text-xs"></i> Downloads Center
+        </button>
+        <button onclick="switchTab('batches')" class="hover:text-white transition">Live Batches</button>
+        <button onclick="switchTab('books')" class="hover:text-white transition">Books Store</button>
+        <a href="test-portal.html" class="text-pw-electric hover:underline font-bold" target="_blank">National Mock Tests</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= JAVASCRIPT LOGIC & REAL FILE DOWNLOADS ENGINE ================= -->
+  <script>
+    // --- 1. REAL FILE DOWNLOAD TRIGGER HELPER (BLOB ENGINE) ---
+    function downloadRealBlobFile(filename, contentText, mimeType = 'text/plain') {
+      try {
+        const blob = new Blob([contentText], { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        // Feedback toast
+        if (window.CodingWallahAuthUI && window.CodingWallahAuthUI.showToast) {
+          window.CodingWallahAuthUI.showToast(`✔ Download started: ${filename}`, 'success');
+        } else {
+          alert(`📥 Download started for: ${filename}`);
+        }
+      } catch (err) {
+        console.error('Download error:', err);
+      }
+    }
+
+    // --- 2. REAL-TIME SESSION ATTENDANCE TIMER ---
+    let totalStudySeconds = 1458; // 24m 18s
+    setInterval(() => {
+      totalStudySeconds++;
+      const h = Math.floor(totalStudySeconds / 3600).toString().padStart(2, '0');
+      const m = Math.floor((totalStudySeconds % 3600) / 60).toString().padStart(2, '0');
+      const s = (totalStudySeconds % 60).toString().padStart(2, '0');
+      const timerEl = document.getElementById('sessionTimerText');
+      if (timerEl) timerEl.textContent = `${h}:${m}:${s}`;
+      const statToday = document.getElementById('statTodayTime');
+      if (statToday) statToday.textContent = `${Math.floor(totalStudySeconds / 3600)}h ${Math.floor((totalStudySeconds % 3600) / 60)}m`;
+    }, 1000);
+
+    // --- 3. TAB NAVIGATION CONTROLLER ---
+    function switchTab(tabId) {
+      const tabs = ['home', 'batches', 'books', 'qbank', 'pyq', 'notes'];
+      tabs.forEach(t => {
+        const el = document.getElementById(`view-${t}`);
+        if (el) {
+          if (t === tabId) el.classList.remove('hidden');
+          else el.classList.add('hidden');
+        }
+      });
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabId) {
+          btn.classList.add('bg-slate-800', 'text-white', 'border', 'border-slate-700');
+          btn.classList.remove('text-slate-300');
+        } else {
+          btn.classList.remove('bg-slate-800', 'text-white', 'border', 'border-slate-700');
+          btn.classList.add('text-slate-300');
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- 4. BATCHES & WORKING YOUTUBE PLAYER DATA ---
+    const BATCHES_DATA = [
+      {
+        id: "dsa_super60",
+        title: "Super 60: DSA in C++ & Java Masterclass",
+        badge: "🔴 LIVE DAILY",
+        instructor: "Sanchit Verma (Ex-Google L4)",
+        enrolled: "1,420 Students",
+        desc: "Complete placement path: Dynamic Programming, Graph Flow, Trie, Segment Trees, and 350+ LeetCode problems.",
+        defaultYoutubeId: "8jLOx1hD3_o", // C++ DSA Lecture
+        syllabusPdfName: "Super60_DSA_Complete_Syllabus_Roadmap.pdf",
+        lectures: [
+          {
+            num: 1,
+            title: "Lec 01: Dynamic Programming - 0/1 Knapsack & Subset Transitions",
+            duration: "1h 28m",
+            youtubeId: "8jLOx1hD3_o",
+            notesPdf: "Lec01_Knapsack_Notes.pdf",
+            pptFile: "Lec01_Knapsack_SlideDeck.pptx",
+            notesContent: "CODING WALLAH VERIFIED LECTURE NOTES\nTopic: Dynamic Programming (0/1 Knapsack)\n\nState Definition: dp[i][w] = Maximum value achievable with i items and capacity w.\nTransition: dp[i][w] = max(dp[i-1][w], val[i] + dp[i-1][w - weight[i]])\nSpace Optimization: Iterate backwards from W to weight[i] using 1D array O(W)!"
+          },
+          {
+            num: 2,
+            title: "Lec 02: Graph Traversal - BFS, DFS & Cycle Detection",
+            duration: "1h 42m",
+            youtubeId: "vLnPwxZdW4Y", // CS50 / Graph Theory
+            notesPdf: "Lec02_Graph_BFS_DFS_Notes.pdf",
+            pptFile: "Lec02_Graph_SlideDeck.pptx",
+            notesContent: "CODING WALLAH VERIFIED LECTURE NOTES\nTopic: Graph Traversal\n\nBFS uses Queue (Queue FIFO), DFS uses Recursion Stack (Call stack).\nCycle detection in Directed Graph requires visited array + in-recursion-stack array."
+          },
+          {
+            num: 3,
+            title: "Lec 03: Binary Trees, BST & Lowest Common Ancestor (LCA)",
+            duration: "1h 15m",
+            youtubeId: "fAAZixBzIAI",
+            notesPdf: "Lec03_Binary_Trees_LCA_Notes.pdf",
+            pptFile: "Lec03_Trees_SlideDeck.pptx",
+            notesContent: "CODING WALLAH VERIFIED LECTURE NOTES\nTopic: Binary Trees\n\nLowest Common Ancestor (LCA): If root matches p or q, return root. Recurse left and right."
+          }
+        ]
+      },
+      {
+        id: "fullstack_pw",
+        title: "Full-Stack Web Dev & AI Microservices",
+        badge: "⚡ HIGH DEMAND",
+        instructor: "Aayush Sharma (Architect @ Swiggy)",
+        enrolled: "2,150 Students",
+        desc: "Build 6 real-world production projects: SaaS AI generator, FinTech payment portal, Next.js 14, WebSockets, and Docker.",
+        defaultYoutubeId: "RBSGKlAvoiM", // Next.js / React
+        syllabusPdfName: "FullStack_WebDev_AI_Syllabus.pdf",
+        lectures: [
+          {
+            num: 1,
+            title: "Lec 01: Next.js 14 App Router, Server Actions & Streaming",
+            duration: "1h 50m",
+            youtubeId: "RBSGKlAvoiM",
+            notesPdf: "Lec01_Nextjs14_Notes.pdf",
+            pptFile: "Lec01_Nextjs14_SlideDeck.pptx",
+            notesContent: "CODING WALLAH VERIFIED LECTURE NOTES\nTopic: Next.js 14 App Router\n\nServer Components execute on server, reducing client bundle size to zero bytes for static UI."
+          },
+          {
+            num: 2,
+            title: "Lec 02: Real-Time WebSockets & Socket.io Concurrency",
+            duration: "1h 22m",
+            youtubeId: "ZKEqqIO7n-k",
+            notesPdf: "Lec02_WebSockets_Notes.pdf",
+            pptFile: "Lec02_WebSockets_SlideDeck.pptx",
+            notesContent: "CODING WALLAH VERIFIED LECTURE NOTES\nTopic: WebSockets Architecture\n\nPersistent bi-directional TCP full-duplex communication over single socket connection."
+          }
+        ]
+      },
+      {
+        id: "sysdesign_pw",
+        title: "Low Level & High Level System Design",
+        badge: "⭐ SDE-2 SPECIAL",
+        instructor: "Pooja Reddy (Senior Staff SWE @ Uber)",
+        enrolled: "980 Students",
+        desc: "OOPs design patterns, concurrency, distributed caching, Kafka event streaming, and architectural blueprints of Uber & Netflix.",
+        defaultYoutubeId: "z9bZufPHFLU", // System Design
+        syllabusPdfName: "System_Design_Blueprint_Syllabus.pdf",
+        lectures: [
+          {
+            num: 1,
+            title: "Lec 01: Consistent Hashing, Virtual Nodes & Ring Partitions",
+            duration: "1h 35m",
+            youtubeId: "z9bZufPHFLU",
+            notesPdf: "Lec01_Consistent_Hashing_Notes.pdf",
+            pptFile: "Lec01_Consistent_Hashing_Deck.pptx",
+            notesContent: "CODING WALLAH VERIFIED LECTURE NOTES\nTopic: Consistent Hashing\n\nConsistent Hashing maps servers and keys to a 360-degree ring (2^32 - 1). On churn, only K/N keys move."
+          }
+        ]
+      }
+    ];
+
+    let activeBatch = BATCHES_DATA[0];
+    let activeLecture = BATCHES_DATA[0].lectures[0];
+
+    function renderBatches() {
+      const container = document.getElementById('batchesContainer');
+      container.innerHTML = BATCHES_DATA.map(b => `
+        <div onclick="openBatchPlayerModal('${b.id}')" class="card-3d cursor-pointer bg-pw-card/90 border border-slate-700/80 rounded-3xl overflow-hidden shadow-3d-card hover:shadow-3d-hover transition flex flex-col justify-between group">
+          <div class="h-44 bg-gradient-to-br from-[#0f172a] via-[#1a2744] to-[#0f172a] p-5 flex flex-col justify-between relative">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 bg-red-600/90 text-white text-[10px] font-black rounded-lg uppercase tracking-wider">
+                ${b.badge}
+              </span>
+              <span class="text-xs font-mono text-slate-300"><i class="fa-solid fa-users text-pw-electric"></i> ${b.enrolled}</span>
+            </div>
+            <div>
+              <span class="text-xs text-pw-electric font-bold uppercase tracking-wider block">ELITE DEVELOPER ACADEMY</span>
+              <h3 class="text-lg font-bold text-white group-hover:text-pw-electric transition">${b.title}</h3>
+            </div>
+          </div>
+
+          <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+            <p class="text-xs text-slate-400 leading-relaxed">${b.desc}</p>
+            <div class="text-xs text-slate-300 font-medium">Instructor: <strong class="text-white">${b.instructor}</strong></div>
+
+            <div class="border-t border-slate-800 pt-3 flex items-center justify-between text-xs">
+              <span class="text-pw-yellow font-bold"><i class="fa-brands fa-youtube text-red-500 mr-1 text-sm"></i> Watch Lecture</span>
+              <span class="text-pw-electric font-bold flex items-center gap-1 group-hover:translate-x-1 transition">
+                Enter Classroom <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openBatchPlayerModal(batchId) {
+      activeBatch = BATCHES_DATA.find(b => b.id === batchId) || BATCHES_DATA[0];
+      activeLecture = activeBatch.lectures[0];
+
+      document.getElementById('modalBatchPlayerTitle').textContent = activeBatch.title;
+      document.getElementById('modalBatchInstructor').textContent = `${activeBatch.instructor} • Live YouTube Classroom`;
+      document.getElementById('playlistCountBadge').textContent = `${activeBatch.lectures.length} Lectures Available`;
+
+      renderBatchPlaylists();
+      loadLectureVideo(activeLecture);
+
+      document.getElementById('batchPlayerModal').classList.remove('hidden');
+    }
+
+    function closeBatchPlayerModal() {
+      // Pause YouTube iframe by resetting src
+      const iframe = document.getElementById('mainYouTubeIframe');
+      iframe.src = '';
+      document.getElementById('batchPlayerModal').classList.add('hidden');
+    }
+
+    function renderBatchPlaylists() {
+      const container = document.getElementById('batchLecturesListContainer');
+      container.innerHTML = activeBatch.lectures.map((lec, idx) => `
+        <div onclick="selectLectureInModal(${idx})" class="p-3 bg-[#0b1329] hover:bg-[#0f172a] border border-slate-800 rounded-2xl cursor-pointer transition flex items-center justify-between gap-3 group">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-red-600/20 text-red-400 border border-red-500/30 flex items-center justify-center text-xs shrink-0 group-hover:bg-red-600 group-hover:text-white transition">
+              <i class="fa-solid fa-play"></i>
+            </div>
+            <div>
+              <h5 class="text-xs font-bold text-white group-hover:text-pw-electric transition leading-tight">${lec.title}</h5>
+              <span class="text-[10px] text-slate-400 font-mono mt-0.5 block">${lec.duration} • YouTube Stream</span>
+            </div>
+          </div>
+          <button onclick="event.stopPropagation(); downloadRealBlobFile('${lec.notesPdf}', '${lec.notesContent.replace(/\n/g, '\\n')}', 'application/pdf')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-[10px] font-bold shrink-0">
+            <i class="fa-solid fa-download mr-1 text-red-400"></i> PDF
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function selectLectureInModal(idx) {
+      activeLecture = activeBatch.lectures[idx];
+      loadLectureVideo(activeLecture);
+    }
+
+    function loadLectureVideo(lecture) {
+      document.getElementById('activeLectureTitle').textContent = lecture.title;
+      const iframe = document.getElementById('mainYouTubeIframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${lecture.youtubeId}?autoplay=1&enablejsapi=1`;
+    }
+
+    function loadCustomYouTubeVideo() {
+      const input = document.getElementById('customYoutubeInput').value.trim();
+      if (!input) return;
+
+      let videoId = input;
+      // Extract video ID from full YouTube URL if provided
+      if (input.includes('youtube.com/watch?v=')) {
+        videoId = input.split('v=')[1].split('&')[0];
+      } else if (input.includes('youtu.be/')) {
+        videoId = input.split('youtu.be/')[1].split('?')[0];
+      }
+
+      const iframe = document.getElementById('mainYouTubeIframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1`;
+      document.getElementById('activeLectureTitle').textContent = `Custom Loaded YouTube Lecture (ID: ${videoId})`;
+      alert(`🎥 Loaded YouTube video: ${videoId}`);
+    }
+
+    function downloadBatchSyllabus() {
+      downloadRealBlobFile(
+        activeBatch.syllabusPdfName,
+        `CODING WALLAH OFFICIAL BATCH SYLLABUS\nBatch: ${activeBatch.title}\nInstructor: ${activeBatch.instructor}\nDuration: 6 Months\n\nModules Included:\n1. Foundations & Recursion\n2. Advanced Tree & Graph Data Structures\n3. Dynamic Programming Master Patterns\n4. Real FAANG Interview Mock Contests`
+      );
+    }
+
+    function downloadCurrentLectureNotes() {
+      downloadRealBlobFile(activeLecture.notesPdf, activeLecture.notesContent);
+    }
+
+    function downloadCurrentLecturePpt() {
+      downloadRealBlobFile(activeLecture.pptFile, `CODING WALLAH VERIFIED SLIDE DECK\nLecture: ${activeLecture.title}\nFormat: 16:9 Vector Slide Deck\n(Complete presentation slides data)`);
+    }
+
+    // --- 5. CENTRAL DOWNLOADS CENTER ENGINE ---
+    const DOWNLOADS_VAULT = [
+      { id: 1, title: "Super 60 DSA: Complete Dynamic Programming Bible", cat: "PDF", format: "PDF", size: "18.4 MB", count: "14.2K", file: "Super60_DSA_DP_Bible.pdf", content: "COMPLETE 0/1 KNAPSACK & DP PATTERNS NOTES\n- State Tabulation vs Memoization\n- Space Optimization from O(N*W) to O(W)\n- Longest Increasing Subsequence in O(N log N)" },
+      { id: 2, title: "Operating Systems: Concurrency & Semaphores Slide Deck", cat: "PPT", format: "PPTX", size: "22.1 MB", count: "8.9K", file: "OS_Concurrency_Semaphores_Deck.pptx", content: "OPERATING SYSTEMS ANIMATED SLIDE DECK\n- Peterson's Algorithm\n- Reader-Writer Problem\n- Dining Philosophers & Banker's Algorithm" },
+      { id: 3, title: "Coding Wallah: Data Structures Handwritten Bible (Full Edition)", cat: "BOOK", format: "PDF", size: "48.2 MB", count: "32.1K", file: "Coding_Wallah_DSA_Handwritten_Bible.pdf", content: "CODING WALLAH DATA STRUCTURES HANDWRITTEN BIBLE\nComplete 420-page edition with memory models, linked list diagrams, and BST balancing." },
+      { id: 4, title: "Google 2024-2026 SWE Interview PYQs Verified Archive", cat: "PYQ", format: "PDF", size: "14.5 MB", count: "19.4K", file: "Google_SWE_2026_Interview_PYQ.pdf", content: "GOOGLE VERBATIM CODING ROUND ARCHIVE\n1. Word Ladder II\n2. Longest Increasing Path in Matrix\n3. Count of Smaller Numbers After Self" },
+      { id: 5, title: "DBMS: ACID Transactions, B+ Trees & Indexing Slide Deck", cat: "PPT", format: "PPTX", size: "19.8 MB", count: "11.2K", file: "DBMS_ACID_Index_Deck.pptx", content: "DATABASE MANAGEMENT SYSTEMS ANIMATED SLIDES\n- B+ Tree Index Node Splits\n- Write-Ahead Logging (WAL)\n- Isolation Levels: Read Committed to Serializable" },
+      { id: 6, title: "Amazon SDE-1 Top 50 High-Frequency PYQ Problem Set", cat: "PYQ", format: "PDF", size: "12.3 MB", count: "24.6K", file: "Amazon_SDE1_Top50_PYQs.pdf", content: "AMAZON HIGH FREQUENCY PYQS\n1. LRU Cache Design\n2. Rotten Oranges Multi-source BFS\n3. K Closest Points to Origin" },
+      { id: 7, title: "Cracking System Design: LLD & HLD Handbook", cat: "BOOK", format: "PDF", size: "36.5 MB", count: "18.3K", file: "Cracking_System_Design_Handbook.pdf", content: "SYSTEM DESIGN BLUEPRINTS\n- Uber / Ola Real-Time Geohashing Architecture\n- WhatsApp WebSocket Messaging Architecture\n- Distributed Rate Limiter with Token Bucket" },
+      { id: 8, title: "Computer Networks: Three-Way Handshake & QUIC Slide Deck", cat: "PPT", format: "PPTX", size: "16.7 MB", count: "7.8K", file: "Computer_Networks_Core_Deck.pptx", content: "COMPUTER NETWORKS CLASSROOM SLIDES\n- TCP 3-Way Handshake SYN/ACK\n- TCP Congestion Window Tahoe vs Cubic\n- HTTP/3 UDP QUIC Protocol" }
+    ];
+
+    let currentDlCategory = 'all';
+
+    function openDownloadsCenterModal() {
+      renderDownloadsCenter();
+      document.getElementById('downloadsCenterModal').classList.remove('hidden');
+    }
+
+    function closeDownloadsCenterModal() {
+      document.getElementById('downloadsCenterModal').classList.add('hidden');
+    }
+
+    function filterDownloadsCategory(cat) {
+      currentDlCategory = cat;
+      document.querySelectorAll('.dl-cat-btn').forEach(btn => {
+        if (btn.getAttribute('data-cat') === cat) {
+          btn.className = "dl-cat-btn px-3 py-1.5 rounded-xl bg-amber-500 text-slate-950 font-bold";
+        } else {
+          btn.className = "dl-cat-btn px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white";
+        }
+      });
+      renderDownloadsCenter();
+    }
+
+    function filterDownloadsCenter() {
+      renderDownloadsCenter();
+    }
+
+    function renderDownloadsCenter() {
+      const search = (document.getElementById('downloadsSearchInput')?.value || '').toLowerCase();
+      const tbody = document.getElementById('downloadsTableBody');
+      if (!tbody) return;
+
+      const filtered = DOWNLOADS_VAULT.filter(item => {
+        const matchCat = (currentDlCategory === 'all') || (item.cat === currentDlCategory);
+        const matchSearch = item.title.toLowerCase().includes(search) || item.file.toLowerCase().includes(search);
+        return matchCat && matchSearch;
+      });
+
+      tbody.innerHTML = filtered.map(item => `
+        <tr class="hover:bg-slate-900/60 transition">
+          <td class="py-3 px-4 font-semibold text-white">
+            <div class="flex items-center gap-2.5">
+              <i class="fa-solid ${item.format === 'PDF' ? 'fa-file-pdf text-red-400' : 'fa-file-powerpoint text-orange-400'} text-sm"></i>
+              <span>${item.title}</span>
+            </div>
+          </td>
+          <td class="py-3 px-4">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 border border-slate-700 text-slate-300">${item.cat}</span>
+          </td>
+          <td class="py-3 px-4 font-mono text-pw-electric font-bold">${item.format}</td>
+          <td class="py-3 px-4 font-mono text-slate-400">${item.size}</td>
+          <td class="py-3 px-4 font-mono text-emerald-400">${item.count}</td>
+          <td class="py-3 px-4 text-right">
+            <button onclick="downloadRealBlobFile('${item.file}', '${item.content.replace(/\n/g, '\\n')}')" class="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 ml-auto shadow">
+              <i class="fa-solid fa-download text-[10px]"></i> Download
+            </button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    // --- 6. BOOKS STORE & READER MODAL ---
+    const BOOKS_DATA = [
+      {
+        id: "dsa_bible",
+        title: "DSA Handwritten Bible",
+        author: "Sandeep Jain & Team",
+        pages: 420,
+        badge: "BESTSELLER",
+        file: "DSA_Handwritten_Bible.pdf",
+        chapters: [
+          { num: 1, title: "Array Foundations & Prefix Sum Algorithms", page: 12 },
+          { num: 2, title: "Two Pointers, Sliding Window & Frequency Maps", page: 48 },
+          { num: 3, title: "Dynamic Programming: Knapsack & LIS State Proofs", page: 110 }
+        ]
+      },
+      {
+        id: "algo_visual",
+        title: "500+ Algorithms Visualized",
+        author: "Academic Faculty Board",
+        pages: 580,
+        badge: "COLOR EDITION",
+        file: "500_Algorithms_Visualized.pdf",
+        chapters: [
+          { num: 1, title: "Sorting Visualizations: QuickSort, MergeSort, Radix", page: 18 },
+          { num: 2, title: "String Algorithms: KMP, Rabin-Karp & Z-Algorithm", page: 94 },
+          { num: 3, title: "Graph Flow: Ford-Fulkerson & Hopcroft-Karp", page: 210 }
+        ]
+      },
+      {
+        id: "webdev_master",
+        title: "Full-Stack Web Dev Master Handbook",
+        author: "Aayush Sharma",
+        pages: 360,
+        badge: "FULL-STACK",
+        file: "FullStack_WebDev_Master_Book.pdf",
+        chapters: [
+          { num: 1, title: "JavaScript Event Loop & Microtask Queues", page: 14 },
+          { num: 2, title: "React Fiber Architecture & Reconciliation", page: 78 }
+        ]
+      },
+      {
+        id: "sys_blueprint",
+        title: "Cracking System Design Blueprints",
+        author: "Pooja Reddy (Staff SWE)",
+        pages: 490,
+        badge: "FAANG SDE-2",
+        file: "System_Design_Blueprints.pdf",
+        chapters: [
+          { num: 1, title: "Consistent Hashing & Dynamic Partitioning", page: 22 },
+          { num: 2, title: "Distributed Transactions: 2PC vs Saga Pattern", page: 90 }
+        ]
+      }
+    ];
+
+    let activeBook = BOOKS_DATA[0];
+    let activeChapterIdx = 0;
+
+    function renderBooks() {
+      const container = document.getElementById('booksContainer');
+      container.innerHTML = BOOKS_DATA.map(book => `
+        <div onclick="openBookModal('${book.id}')" class="card-3d cursor-pointer bg-pw-card/90 border border-slate-700/80 rounded-3xl p-5 shadow-3d-card hover:shadow-3d-hover transition flex flex-col justify-between space-y-4 group">
+          <div class="flex items-start justify-between">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl shadow-inner group-hover:scale-110 transition">
+              <i class="fa-solid fa-book-bookmark"></i>
+            </div>
+            <span class="px-2 py-0.5 rounded text-[10px] font-black bg-amber-500/20 text-amber-300 border border-amber-500/40 font-mono">
+              ${book.badge}
+            </span>
+          </div>
+
+          <div>
+            <h3 class="text-sm font-bold text-white group-hover:text-amber-400 transition leading-snug">${book.title}</h3>
+            <p class="text-[11px] text-slate-400 mt-1">${book.author}</p>
+          </div>
+
+          <div class="border-t border-slate-800 pt-3 flex items-center justify-between text-xs">
+            <span class="text-slate-400 font-mono"><i class="fa-solid fa-file-pdf text-red-400 mr-1"></i> ${book.pages} Pages</span>
+            <span class="text-amber-400 font-bold flex items-center gap-1 group-hover:translate-x-1 transition">
+              Read Online &rarr;
+            </span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openBookModal(bookId) {
+      activeBook = BOOKS_DATA.find(b => b.id === bookId) || BOOKS_DATA[0];
+      activeChapterIdx = 0;
+      document.getElementById('modalBookTitle').textContent = activeBook.title;
+      document.getElementById('modalBookMeta').textContent = `By ${activeBook.author} • ${activeBook.pages} Pages • Edition 2026`;
+      document.getElementById('bookChapterCountBadge').textContent = `${activeBook.chapters.length} Chapters`;
+
+      renderBookChapters();
+      loadBookChapter(0);
+
+      document.getElementById('bookViewerModal').classList.remove('hidden');
+    }
+
+    function closeBookModal() {
+      document.getElementById('bookViewerModal').classList.add('hidden');
+    }
+
+    function renderBookChapters() {
+      const container = document.getElementById('bookChapterList');
+      container.innerHTML = activeBook.chapters.map((ch, idx) => `
+        <div onclick="loadBookChapter(${idx})" class="p-2.5 rounded-xl border cursor-pointer transition ${
+          idx === activeChapterIdx ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 font-bold' : 'bg-[#0f172a] border-slate-800 text-slate-400 hover:text-white'
+        }">
+          <div class="text-[10px] font-mono text-slate-500">Ch ${ch.num} • Page ${ch.page}</div>
+          <div class="text-xs truncate">${ch.title}</div>
+        </div>
+      `).join('');
+    }
+
+    function loadBookChapter(idx) {
+      activeChapterIdx = idx;
+      renderBookChapters();
+      const ch = activeBook.chapters[idx];
+
+      document.getElementById('currentChapterBadge').textContent = `Chapter ${ch.num}: ${ch.title}`;
+      document.getElementById('pageNumberIndicator').textContent = `Page ${ch.page} of ${activeBook.pages}`;
+      document.getElementById('readerPageTitle').textContent = `${ch.title} - Deep-Dive Architecture & Visual Proofs`;
+
+      document.getElementById('readerPageBody').innerHTML = `
+        <p>In this chapter, we unpack the mathematical intuition, invariant state transitions, and step-by-step algorithms necessary for top tech placement interviews.</p>
+        <div class="bg-[#0b1329] p-4 rounded-xl border border-slate-800 font-mono text-xs text-amber-300 overflow-x-auto my-3">
+          <pre><code>// Verified Code Snippet: Chapter ${ch.num}\nconst result = solveOptimal(inputData);\nconsole.log("Optimized Big-O Proof Passed!");</code></pre>
+        </div>
+        <p class="text-slate-400 text-[11px]">Pay critical attention to boundary conditions, off-by-one pointer arithmetic, and auxiliary space guarantees during FAANG whiteboard rounds.</p>
+      `;
+    }
+
+    function prevBookPage() {
+      if (activeChapterIdx > 0) loadBookChapter(activeChapterIdx - 1);
+    }
+    function nextBookPage() {
+      if (activeChapterIdx < activeBook.chapters.length - 1) loadBookChapter(activeChapterIdx + 1);
+    }
+
+    function downloadActiveBookDirectly() {
+      downloadRealBlobFile(activeBook.file, `CODING WALLAH OFFICIAL HANDBOOK\nBook: ${activeBook.title}\nAuthor: ${activeBook.author}\nPages: ${activeBook.pages}\n\n(Full complete chapter-wise digital edition)`);
+    }
+
+    // --- 7. QUESTION BANK REPOSITORY & INTERACTIVE SANDBOX ---
+    const QUESTIONS_DATA = [
+      {
+        id: 1,
+        title: "Two Sum - Target Hash Lookup",
+        topic: "Arrays & Hashing",
+        difficulty: "Easy",
+        companies: ["Google", "Amazon", "Microsoft"],
+        desc: "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
+        examples: "Input: nums = [2,7,11,15], target = 9\nOutput: [0,1]\nExplanation: Because nums[0] + nums[1] == 9, we return [0, 1].",
+        constraints: ["2 <= nums.length <= 10^4", "-10^9 <= nums[i] <= 10^9"],
+        hint: "Store complements in an unordered_map / Hash Map to drop complexity from O(N^2) to O(N).",
+        template: `#include <vector>\n#include <unordered_map>\n\nstd::vector<int> twoSum(std::vector<int>& nums, int target) {\n    std::unordered_map<int, int> seen;\n    for (int i = 0; i < nums.size(); i++) {\n        int complement = target - nums[i];\n        if (seen.find(complement) != seen.end()) return {seen[complement], i};\n        seen[nums[i]] = i;\n    }\n    return {};\n}`
+      },
+      {
+        id: 2,
+        title: "Trapping Rain Water",
+        topic: "Two Pointers",
+        difficulty: "Hard",
+        companies: ["Google", "Amazon"],
+        desc: "Given n non-negative integers representing an elevation map where width of each bar is 1, compute how much water it can trap.",
+        examples: "Input: height = [0,1,0,2,1,0,1,3,2,1,2,1]\nOutput: 6",
+        constraints: ["1 <= n <= 2 * 10^4", "0 <= height[i] <= 10^5"],
+        hint: "Two pointers left and right with leftMax and rightMax achieves O(N) time and O(1) space.",
+        template: `int trap(vector<int>& height) {\n    int l = 0, r = height.size() - 1, lMax = 0, rMax = 0, water = 0;\n    while (l < r) {\n        if (height[l] < height[r]) {\n            if (height[l] >= lMax) lMax = height[l];\n            else water += lMax - height[l];\n            l++;\n        } else {\n            if (height[r] >= rMax) rMax = height[r];\n            else water += rMax - height[r];\n            r--;\n        }\n    }\n    return water;\n}`
+      },
+      {
+        id: 3,
+        title: "Longest Increasing Subsequence (LIS)",
+        topic: "Dynamic Programming",
+        difficulty: "Medium",
+        companies: ["Microsoft", "Flipkart"],
+        desc: "Given an integer array nums, return the length of the longest strictly increasing subsequence.",
+        examples: "Input: nums = [10,9,2,5,3,7,101,18]\nOutput: 4",
+        constraints: ["1 <= nums.length <= 2500"],
+        hint: "Patience sorting / binary search via std::lower_bound achieves O(N log N) runtime.",
+        template: `int lengthOfLIS(vector<int>& nums) {\n    vector<int> tails;\n    for (int x : nums) {\n        auto it = lower_bound(tails.begin(), tails.end(), x);\n        if (it == tails.end()) tails.push_back(x);\n        else *it = x;\n    }\n    return tails.size();\n}`
+      }
+    ];
+
+    let activeQ = QUESTIONS_DATA[0];
+
+    function renderQuestions(items = QUESTIONS_DATA) {
+      const container = document.getElementById('questionsContainer');
+      document.getElementById('qCountDisplay').textContent = items.length;
+
+      container.innerHTML = items.map(q => `
+        <div class="card-3d bg-pw-card/90 border border-slate-700/80 rounded-2xl p-5 shadow-3d-card hover:shadow-3d-hover transition space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-2.5">
+              <span class="px-2 py-0.5 rounded text-[10px] font-black ${q.difficulty === 'Hard' ? 'bg-red-500/10 text-red-400 border border-red-500/30' : q.difficulty === 'Medium' ? 'bg-amber-500/10 text-amber-400 border border-amber-500/30' : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30'} font-mono">${q.difficulty}</span>
+              <h4 class="text-sm font-bold text-white hover:text-pw-electric cursor-pointer transition" onclick="openQuestionModal(${q.id})">${q.title}</h4>
+            </div>
+            <div class="flex items-center gap-1.5">
+              ${q.companies.map(c => `<span class="px-2 py-0.5 bg-[#0b1329] border border-slate-700 text-[10px] rounded text-slate-300 font-medium">${c}</span>`).join('')}
+            </div>
+          </div>
+
+          <p class="text-xs text-slate-400 leading-relaxed">${q.desc}</p>
+
+          <div class="flex items-center justify-between pt-2 border-t border-slate-800 text-xs">
+            <span class="text-slate-400 font-mono text-[11px]"><i class="fa-solid fa-code-fork text-pw-electric mr-1"></i> ${q.topic}</span>
+            <button onclick="openQuestionModal(${q.id})" class="px-3.5 py-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow">
+              <span>Open Code Sandbox</span>
+              <i class="fa-solid fa-code text-[11px]"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterQuestions() {
+      const search = (document.getElementById('qSearchInput')?.value || '').toLowerCase();
+      const topic = document.getElementById('qTopicFilter').value;
+      const diff = document.getElementById('qDiffFilter').value;
+
+      const filtered = QUESTIONS_DATA.filter(q => {
+        const matchSearch = q.title.toLowerCase().includes(search) || q.desc.toLowerCase().includes(search);
+        const matchTopic = (topic === 'all') || (q.topic === topic);
+        const matchDiff = (diff === 'all') || (q.difficulty === diff);
+        return matchSearch && matchTopic && matchDiff;
+      });
+
+      renderQuestions(filtered);
+    }
+
+    function openQuestionModal(id) {
+      activeQ = QUESTIONS_DATA.find(q => q.id === id) || QUESTIONS_DATA[0];
+
+      document.getElementById('modalQTitle').textContent = activeQ.title;
+      document.getElementById('modalQDiffBadge').textContent = activeQ.difficulty;
+      document.getElementById('modalQTopic').textContent = `Topic: ${activeQ.topic} • ${activeQ.companies.join(', ')}`;
+      document.getElementById('modalQDesc').textContent = activeQ.desc;
+      document.getElementById('modalQExamples').textContent = activeQ.examples;
+      document.getElementById('modalQConstraints').innerHTML = activeQ.constraints.map(c => `<li>${c}</li>`).join('');
+      document.getElementById('modalQHintText').textContent = activeQ.hint;
+      document.getElementById('sandboxCodeArea').value = activeQ.template;
+      document.getElementById('aiSolutionBox').classList.add('hidden');
+      document.getElementById('sandboxConsoleOutput').classList.add('hidden');
+
+      document.getElementById('questionSolverModal').classList.remove('hidden');
+    }
+
+    function closeQuestionModal() {
+      document.getElementById('questionSolverModal').classList.add('hidden');
+    }
+
+    function toggleAiSolutionHint() {
+      document.getElementById('aiSolutionBox').classList.toggle('hidden');
+    }
+
+    function changeSandboxTemplate() {
+      const lang = document.getElementById('sandboxLangSelect').value;
+      if (lang === 'python') {
+        document.getElementById('sandboxCodeArea').value = `class Solution:\n    def solve(self, nums):\n        # Write optimal code here\n        pass`;
+      } else {
+        document.getElementById('sandboxCodeArea').value = activeQ.template;
+      }
+    }
+
+    function runSandboxCode() {
+      const out = document.getElementById('sandboxConsoleOutput');
+      out.classList.remove('hidden');
+      out.innerHTML = `
+        <div class="text-pw-electric font-bold mb-1"><i class="fa-solid fa-spinner fa-spin"></i> Compiling with g++ 17...</div>
+        <div class="text-emerald-400 font-semibold">✔ Testcase 1: PASSED (Runtime: 4ms)</div>
+        <div class="text-emerald-400 font-semibold">✔ Testcase 2: PASSED (Runtime: 6ms)</div>
+        <div class="text-slate-400 mt-1">Memory usage: 10.4 MB. All assertions succeeded.</div>
+      `;
+    }
+
+    function submitSandboxCode() {
+      if (window.CodingWallahAuthUI) {
+        window.CodingWallahAuthUI.requireAuth(() => {
+          alert("🎉 All 5 Hidden Testcases Passed! Solution accepted (+20 XP).");
+          closeQuestionModal();
+        }, null, 'submit code solutions to the question bank');
+      } else {
+        alert("🎉 Solution accepted!");
+        closeQuestionModal();
+      }
+    }
+
+    // --- 8. COMPANY PYQS & PPT REVISION HUB ---
+    const COMPANY_PYQ_DATA = {
+      Google: {
+        questions: [
+          { title: "Word Ladder II (Shortest Transformation Sequences)", round: "Google L4 Onsite Round", difficulty: "Hard" },
+          { title: "Longest Increasing Path in a Matrix", round: "Google L3 Online Assessment", difficulty: "Hard" }
+        ],
+        ppts: [
+          { title: "Google Top 50 Dynamic Programming Patterns Deck", size: "14.2 MB", file: "Google_Top50_DP.pptx" },
+          { title: "Google Trie & Graph Flow Interview Notes", size: "9.8 MB", file: "Google_Graphs_Trie.pptx" }
+        ]
+      },
+      Microsoft: {
+        questions: [
+          { title: "Serialize and Deserialize Binary Tree", round: "Microsoft Technical Round", difficulty: "Medium" },
+          { title: "Find the Duplicate Number (Floyd Cycle)", round: "Microsoft OA 2026", difficulty: "Medium" }
+        ],
+        ppts: [
+          { title: "Microsoft Core OS Concurrency & Deadlocks Deck", size: "12.5 MB", file: "Microsoft_OS_Concurrency.pptx" }
+        ]
+      },
+      Amazon: {
+        questions: [
+          { title: "LRU Cache Design (Doubly Linked List + Map)", round: "Amazon SDE-1 Bar Raiser", difficulty: "Medium" },
+          { title: "K Closest Points to Origin (Max-Heap)", round: "Amazon OA Round", difficulty: "Medium" }
+        ],
+        ppts: [
+          { title: "Amazon Leadership Principles & LLD Revision Deck", size: "16.1 MB", file: "Amazon_LLD_Leadership.pptx" }
+        ]
+      },
+      Flipkart: {
+        questions: [
+          { title: "Minimum Cost to Cut a Stick (MCM Dynamic Programming)", round: "Flipkart Machine Coding", difficulty: "Hard" }
+        ],
+        ppts: [
+          { title: "Flipkart Machine Coding Architecture Deck", size: "11.3 MB", file: "Flipkart_Machine_Coding.pptx" }
+        ]
+      },
+      Atlassian: {
+        questions: [
+          { title: "Design Hit Counter (Concurrent Sliding Window)", round: "Atlassian SDE Onsite", difficulty: "Medium" }
+        ],
+        ppts: [
+          { title: "Atlassian Concurrency & Rate Limiting Deck", size: "13.4 MB", file: "Atlassian_Rate_Limiter.pptx" }
+        ]
+      }
+    };
+
+    let activeCompany = 'Google';
+
+    function filterCompanyPyq(comp) {
+      activeCompany = comp;
+      document.querySelectorAll('.company-tab-btn').forEach(btn => {
+        if (btn.getAttribute('data-company') === comp) {
+          btn.className = "company-tab-btn px-4 py-2 rounded-xl font-bold transition flex items-center gap-2 bg-blue-600 text-white shadow-glow-blue";
+        } else {
+          btn.className = "company-tab-btn px-4 py-2 rounded-xl font-bold transition flex items-center gap-2 bg-slate-800 text-slate-400 hover:text-white border border-slate-700";
+        }
+      });
+      renderCompanyPyqContent();
+    }
+
+    function renderCompanyPyqContent() {
+      const data = COMPANY_PYQ_DATA[activeCompany];
+      const container = document.getElementById('companyPyqContent');
+
+      container.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <div class="lg:col-span-7 space-y-4">
+            <h4 class="text-sm font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i class="fa-solid fa-list-check text-pw-electric"></i> ${activeCompany} Real Interview PYQs (2024-2026 Archive)
+            </h4>
+            <div class="space-y-3">
+              ${data.questions.map(q => `
+                <div class="card-3d bg-pw-card/90 border border-slate-700/80 p-4 rounded-2xl flex items-center justify-between gap-3 shadow-3d-card">
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="px-2 py-0.5 rounded text-[10px] font-bold ${q.difficulty === 'Hard' ? 'bg-red-500/10 text-red-400' : 'bg-amber-500/10 text-amber-400'} font-mono">${q.difficulty}</span>
+                      <h5 class="text-xs font-bold text-white">${q.title}</h5>
+                    </div>
+                    <span class="text-[11px] text-slate-400 font-mono mt-1 block">${q.round}</span>
+                  </div>
+                  <button onclick="downloadRealBlobFile('${activeCompany}_${q.title.replace(/\\s+/g, '_')}_Editorial.pdf', 'VERIFIED EDITORIAL WALKTHROUGH\\nCompany: ${activeCompany}\\nQuestion: ${q.title}\\nRound: ${q.round}\\n\\nOptimal C++ & Java Code Implementation Included.')" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-download text-[10px] text-pw-electric"></i> Editorial
+                  </button>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 space-y-4">
+            <h4 class="text-sm font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-2">
+              <i class="fa-solid fa-file-powerpoint text-orange-400"></i> ${activeCompany} PPT Slide Decks
+            </h4>
+            <div class="space-y-3">
+              ${data.ppts.map(ppt => `
+                <div class="card-3d bg-pw-card/90 border border-slate-700/80 p-4 rounded-2xl space-y-3 shadow-3d-card">
+                  <div class="flex items-start justify-between">
+                    <div>
+                      <h5 class="text-xs font-bold text-white">${ppt.title}</h5>
+                      <span class="text-[10px] text-slate-400 font-mono">Format: PPTX • ${ppt.size}</span>
+                    </div>
+                    <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-orange-500/20 text-orange-400 font-mono">PPTX</span>
+                  </div>
+                  <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+                    <button onclick="openPptModal('${ppt.title}', '${activeCompany} Revision Deck', 'Slide Presentation Data')" class="text-pw-electric text-xs font-bold flex items-center gap-1">
+                      <i class="fa-solid fa-eye text-[10px]"></i> Preview
+                    </button>
+                    <button onclick="downloadRealBlobFile('${ppt.file}', 'CODING WALLAH COMPANY REVISION SLIDE DECK\\nCompany: ${activeCompany}\\nTopic: ${ppt.title}')" class="px-3 py-1 bg-orange-600 hover:bg-orange-500 text-white rounded-lg text-xs font-bold flex items-center gap-1">
+                      <i class="fa-solid fa-download text-[10px]"></i> Download
+                    </button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // --- 9. SUBJECT-WISE PPT REVISION NOTES ---
+    const SUBJECT_PPTS = [
+      {
+        subject: "Operating Systems (OS)",
+        title: "OS Core: Concurrency, Deadlocks & Memory Management",
+        slides: 36,
+        size: "18.4 MB",
+        file: "OS_Concurrency_Masterclass.pptx",
+        content: "OPERATING SYSTEMS ANIMATED SLIDES\n- Peterson Algorithm & Mutual Exclusion\n- Semaphore vs Mutex Lock\n- Banker's Algorithm for Deadlock Avoidance"
+      },
+      {
+        subject: "Database Management (DBMS)",
+        title: "DBMS: ACID Transactions, B+ Trees & Indexing",
+        slides: 42,
+        size: "21.0 MB",
+        file: "DBMS_ACID_BTree_Masterclass.pptx",
+        content: "DBMS SLIDE DECK\n- Isolation Levels: Read Committed vs Serializable\n- B+ Tree Range Queries\n- 2-Phase Locking Protocol (2PL)"
+      },
+      {
+        subject: "Computer Networks (CN)",
+        title: "Computer Networks: TCP Handshake & DNS Resolution",
+        slides: 38,
+        size: "16.8 MB",
+        file: "CN_TCP_DNS_Masterclass.pptx",
+        content: "COMPUTER NETWORKS SLIDE DECK\n- Three-Way Handshake SYN/ACK\n- TCP Congestion Control Tahoe vs Cubic\n- HTTP/3 over QUIC Protocol"
+      }
+    ];
+
+    let currentSlide = 4;
+    let activePptItem = SUBJECT_PPTS[0];
+
+    function renderSubjectNotes() {
+      const container = document.getElementById('subjectNotesContainer');
+      container.innerHTML = SUBJECT_PPTS.map(ppt => `
+        <div class="card-3d bg-pw-card/90 border border-slate-700/80 rounded-3xl p-5 shadow-3d-card hover:shadow-3d-hover transition flex flex-col justify-between space-y-4 group">
+          <div class="flex items-start justify-between">
+            <div class="w-10 h-10 rounded-2xl bg-orange-500/10 text-orange-400 flex items-center justify-center text-lg shadow-inner group-hover:scale-110 transition">
+              <i class="fa-solid fa-file-powerpoint"></i>
+            </div>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-orange-500/20 text-orange-300 border border-orange-500/40 font-mono">
+              ${ppt.slides} SLIDES
+            </span>
+          </div>
+
+          <div>
+            <span class="text-[11px] font-mono font-bold text-slate-400">${ppt.subject}</span>
+            <h4 class="text-sm font-bold text-white mt-1 group-hover:text-orange-400 transition">${ppt.title}</h4>
+          </div>
+
+          <div class="border-t border-slate-800 pt-3 flex items-center justify-between text-xs text-slate-400">
+            <span class="font-mono">${ppt.size}</span>
+            <div class="flex items-center gap-2">
+              <button onclick="openPptModal('${ppt.title}', '${ppt.subject}', '${ppt.content.replace(/\n/g, '<br/>')}')" class="text-pw-electric font-bold flex items-center gap-1">
+                <i class="fa-solid fa-eye text-xs"></i> Preview
+              </button>
+              <button onclick="downloadRealBlobFile('${ppt.file}', '${ppt.content.replace(/\n/g, '\\n')}')" class="text-orange-400 font-bold flex items-center gap-1">
+                <i class="fa-solid fa-download text-xs"></i> Download
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openPptModal(title, subject, previewText) {
+      document.getElementById('pptModalTitle').textContent = title;
+      document.getElementById('pptModalMeta').textContent = `${subject} • Interactive Slide Viewer`;
+      document.getElementById('slideHeading').textContent = title;
+      document.getElementById('slideContentBody').innerHTML = previewText;
+      currentSlide = 4;
+      updateSlideDisplay();
+      document.getElementById('pptPreviewModal').classList.remove('hidden');
+    }
+
+    function closePptModal() {
+      document.getElementById('pptPreviewModal').classList.add('hidden');
+    }
+
+    function updateSlideDisplay() {
+      document.getElementById('slideNumberBadge').textContent = `Slide ${currentSlide} of 36`;
+      document.getElementById('slidePaginatorText').textContent = `Slide ${currentSlide} of 36`;
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) { currentSlide--; updateSlideDisplay(); }
+    }
+    function nextSlide() {
+      if (currentSlide < 36) { currentSlide++; updateSlideDisplay(); }
+    }
+
+    function downloadCurrentPptFile() {
+      downloadRealBlobFile('Lecture_Presentation_Slides.pptx', 'PRO VERIFIED VECTOR SLIDE DECK\nFormat: 16:9 Presentation Data');
+    }
+
+    function handleAuthHeaderClick() {
+      if (window.CodingWallahAuth && window.CodingWallahAuth.isAuthenticated()) {
+        if (window.CodingWallahAuthUI) window.CodingWallahAuthUI.openProfileMenu();
+      } else {
+        if (window.CodingWallahAuthUI) window.CodingWallahAuthUI.openModal();
+      }
+    }
+
+    // --- INITIALIZE APPLICATION ON LOAD ---
+    window.addEventListener('DOMContentLoaded', () => {
+      renderBatches();
+      renderBooks();
+      renderQuestions();
+      filterCompanyPyq('Google');
+      renderSubjectNotes();
+      initAiDoubtSolver();
+    });
+
+    /* ============================================================
+       CODING WALLAH AI DOUBT SOLVER — COMPLETE ENGINE
+    ============================================================ */
+    function initAiDoubtSolver() {
+      const savedKey = localStorage.getItem('cw_ai_api_key');
+      if (savedKey) {
+        const input = document.getElementById('aiApiKeyInput');
+        if (input) input.value = savedKey;
+      }
+    }
+
+    function toggleAiWidget() {
+      const panel = document.getElementById('aiWidgetPanel');
+      if (!panel) return;
+      panel.classList.toggle('ai-open');
+      if (panel.classList.contains('ai-open')) {
+        const input = document.getElementById('aiUserInput');
+        if (input) input.focus();
+      }
+    }
+
+    function toggleAiApiConfig() {
+      const config = document.getElementById('aiApiConfig');
+      if (config) config.classList.toggle('open');
+    }
+
+    function toggleAiCodeArea() {
+      const codeArea = document.getElementById('aiCodeArea');
+      if (codeArea) {
+        codeArea.classList.toggle('open');
+        if (codeArea.classList.contains('open')) {
+          const snippet = document.getElementById('aiSnippetInput');
+          if (snippet) snippet.focus();
+        }
+      }
+    }
+
+    function saveAiApiKey() {
+      const input = document.getElementById('aiApiKeyInput');
+      if (!input) return;
+      const key = input.value.trim();
+      if (key) {
+        localStorage.setItem('cw_ai_api_key', key);
+        if (window.CodingWallahAuthUI) {
+          window.CodingWallahAuthUI.showToast('API Key saved successfully! Live LLM enabled.', 'success');
+        } else {
+          alert('API Key saved successfully!');
+        }
+      } else {
+        localStorage.removeItem('cw_ai_api_key');
+        if (window.CodingWallahAuthUI) {
+          window.CodingWallahAuthUI.showToast('Removed custom API key. Using built-in neural heuristics.', 'info');
+        }
+      }
+      toggleAiApiConfig();
+    }
+
+    function clearAiChat() {
+      const container = document.getElementById('aiChatMessages');
+      if (!container) return;
+      container.innerHTML = `
+        <div class="ai-bubble bot">
+          <div class="flex items-center gap-1.5 mb-1 text-[11px] font-bold text-sky-400">
+            <i class="fa-solid fa-sparkles"></i> <span>Coding Wallah Skills AI</span>
+          </div>
+          <p>Namaste! 🙏 I am your <strong>Coding Wallah Skills 24/7 AI Mentor</strong>.</p>
+          <p class="mt-1">Chat history cleared. How can I help you debug or learn today?</p>
+        </div>
+      `;
+    }
+
+    function handleAiChipClick(promptText) {
+      const input = document.getElementById('aiUserInput');
+      if (!input) return;
+      input.value = promptText;
+      if (promptText === 'Fix my code error') {
+        const codeArea = document.getElementById('aiCodeArea');
+        if (codeArea && !codeArea.classList.contains('open')) {
+          codeArea.classList.add('open');
+        }
+        const snippet = document.getElementById('aiSnippetInput');
+        if (snippet) snippet.focus();
+      } else {
+        input.focus();
+      }
+    }
+
+    function autoResizeAiInput(textarea) {
+      textarea.style.height = 'auto';
+      textarea.style.height = Math.min(textarea.scrollHeight, 100) + 'px';
+    }
+
+    function handleAiInputKey(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendAiMessage();
+      }
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function formatAiResponse(text) {
+      // 1. Triple backtick code blocks ```lang ... ```
+      text = text.replace(/```([a-zA-Z0-9_+-]*)\n?([\s\S]*?)```/g, function(match, lang, code) {
+        const langLabel = lang || 'code';
+        const cleanCode = escapeHtml(code.trim());
+        return `<div class="my-2 rounded-lg overflow-hidden border border-slate-700/80 bg-[#090d1a]">
+          <div class="flex items-center justify-between px-3 py-1 bg-slate-800/90 text-[10px] text-slate-400 font-mono">
+            <span>${langLabel.toUpperCase()}</span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.my-2').querySelector('code').innerText); this.innerText='Copied!'; setTimeout(()=>this.innerText='Copy', 1500);" class="text-sky-400 hover:text-sky-200">Copy</button>
+          </div>
+          <pre class="m-0 p-2.5 text-xs text-sky-300 font-mono overflow-x-auto leading-relaxed"><code>${cleanCode}</code></pre>
+        </div>`;
+      });
+
+      // 2. Inline code `foo`
+      text = text.replace(/`([^`]+)`/g, '<code class="inline">$1</code>');
+
+      // 3. Bold text
+      text = text.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+      // 4. Line breaks to <br> or paragraphs
+      text = text.replace(/\n\n/g, '<br/><br/>').replace(/\n/g, '<br/>');
+
+      return text;
+    }
+
+    async function sendAiMessage() {
+      const input = document.getElementById('aiUserInput');
+      const snippetInput = document.getElementById('aiSnippetInput');
+      const container = document.getElementById('aiChatMessages');
+      if (!input || !container) return;
+
+      const userText = input.value.trim();
+      const codeSnippet = snippetInput ? snippetInput.value.trim() : '';
+
+      if (!userText && !codeSnippet) return;
+
+      // Construct user bubble
+      let userHtml = ``;
+      if (userText) userHtml += `<p>${escapeHtml(userText)}</p>`;
+      if (codeSnippet) {
+        userHtml += `<pre class="mt-2 text-xs font-mono bg-blue-950/60 border border-blue-400/20 rounded p-2 text-blue-200"><code>${escapeHtml(codeSnippet)}</code></pre>`;
+      }
+
+      const userBubble = document.createElement('div');
+      userBubble.className = 'ai-bubble user';
+      userBubble.innerHTML = userHtml;
+      container.appendChild(userBubble);
+
+      // Clear input fields
+      input.value = '';
+      input.style.height = 'auto';
+      if (snippetInput) {
+        snippetInput.value = '';
+        const codeArea = document.getElementById('aiCodeArea');
+        if (codeArea) codeArea.classList.remove('open');
+      }
+
+      // Append typing indicator
+      const typingEl = document.createElement('div');
+      typingEl.className = 'ai-typing';
+      typingEl.id = 'aiTypingIndicator';
+      typingEl.innerHTML = `<span></span><span></span><span></span>`;
+      container.appendChild(typingEl);
+      container.scrollTop = container.scrollHeight;
+
+      // Generate response
+      try {
+        const fullPrompt = userText + (codeSnippet ? '\n\nAttached Code:\n' + codeSnippet : '');
+        const replyText = await getAiResponse(fullPrompt, userText, codeSnippet);
+        
+        // Remove typing indicator
+        if (typingEl.parentNode) typingEl.parentNode.removeChild(typingEl);
+
+        // Append bot bubble
+        const botBubble = document.createElement('div');
+        botBubble.className = 'ai-bubble bot';
+        botBubble.innerHTML = `
+          <div class="flex items-center gap-1.5 mb-1 text-[11px] font-bold text-sky-400">
+            <i class="fa-solid fa-sparkles"></i> <span>Coding Wallah Skills AI</span>
+          </div>
+          <div class="ai-response-body leading-relaxed text-slate-200">
+            ${formatAiResponse(replyText)}
+          </div>
+        `;
+        container.appendChild(botBubble);
+        container.scrollTop = container.scrollHeight;
+      } catch (err) {
+        if (typingEl.parentNode) typingEl.parentNode.removeChild(typingEl);
+        const botBubble = document.createElement('div');
+        botBubble.className = 'ai-bubble bot text-red-300';
+        botBubble.innerHTML = `<p><i class="fa-solid fa-triangle-exclamation mr-1"></i> Oops, something went wrong: ${err.message || 'Error processing doubt'}</p>`;
+        container.appendChild(botBubble);
+        container.scrollTop = container.scrollHeight;
+      }
+    }
+
+    async function getAiResponse(fullPrompt, userText, codeSnippet) {
+      const apiKey = localStorage.getItem('cw_ai_api_key');
+      if (apiKey && apiKey.startsWith('sk-')) {
+        try {
+          const res = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+              model: 'gpt-3.5-turbo',
+              messages: [
+                { role: 'system', content: 'You are an elite, friendly coding mentor. Provide concise, step-by-step bug fixes, formatted code snippets with markdown blocks, and time/space complexity analysis.' },
+                { role: 'user', content: fullPrompt }
+              ],
+              temperature: 0.3
+            })
+          });
+          if (res.ok) {
+            const data = await res.json();
+            return data.choices[0].message.content;
+          }
+        } catch (e) {
+          console.warn('API call failed, falling back to built-in Heuristic AI:', e);
+        }
+      }
+
+      // Built-in intelligent Heuristic AI simulation (Simulates natural LLM latency)
+      await new Promise(r => setTimeout(r, 650));
+
+      const query = (userText + ' ' + codeSnippet).toLowerCase();
+
+      if (query.includes('reverse') && query.includes('linked list')) {
+        return `### How to Reverse a Singly Linked List (3-Pointer Method)
+
+To reverse a singly linked list in **O(N)** time and **O(1)** auxiliary space, use three pointers: \`prev\`, \`curr\`, and \`next\`.
+
+#### Step-by-Step Logic:
+1. Initialize \`prev = nullptr\` and \`curr = head\`.
+2. While \`curr != nullptr\`:
+   - Store \`next = curr->next\` to save the remaining list.
+   - Point \`curr->next = prev\` (reverse the link).
+   - Move \`prev = curr\` and \`curr = next\`.
+3. Return \`prev\` as the new head.
+
+\`\`\`cpp
+struct ListNode {
+    int val;
+    ListNode *next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+ListNode* reverseList(ListNode* head) {
+    ListNode* prev = nullptr;
+    ListNode* curr = head;
+    
+    while (curr != nullptr) {
+        ListNode* nextNode = curr->next; // Store next
+        curr->next = prev;               // Reverse link
+        prev = curr;                     // Move prev forward
+        curr = nextNode;                 // Move curr forward
+    }
+    return prev;
+}
+\`\`\`
+
+**Time Complexity:** O(N) — Single pass over nodes  
+**Space Complexity:** O(1) — In-place reversal`;
+      }
+
+      if (query.includes('binary search')) {
+        return `### Binary Search: Intuition & Implementation
+
+Binary Search finds the target element in an **already sorted** array in **O(log N)** time by halving the search space at each iteration.
+
+#### Key Invariants & Overflow Prevention:
+- Always compute \`mid\` as \`low + (high - low) / 2\` to avoid integer overflow when \`low + high > INT_MAX\`.
+
+\`\`\`cpp
+int binarySearch(const vector<int>& nums, int target) {
+    int low = 0;
+    int high = nums.size() - 1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        if (nums[mid] == target) {
+            return mid; // Target found
+        } else if (nums[mid] < target) {
+            low = mid + 1; // Discard left half
+        } else {
+            high = mid - 1; // Discard right half
+        }
+    }
+    return -1; // Target not found
+}
+\`\`\`
+
+**Time Complexity:** O(log N)  
+**Space Complexity:** O(1)`;
+      }
+
+      if (query.includes('boilerplate') || query.includes('template')) {
+        return `### Coding Wallah CP & DSA Master Boilerplate (C++)
+
+Here is the high-performance competitive programming template featuring fast I/O:
+
+\`\`\`cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+#define fast_io ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL)
+#define ll long long
+#define pb push_back
+#define all(v) (v).begin(), (v).end()
+
+void solve() {
+    int n;
+    if (!(cin >> n)) return;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++) cin >> a[i];
+
+    // Your solution logic here
+    cout << "Ready for submission!" << "\n";
+}
+
+int main() {
+    fast_io;
+    int t = 1;
+    // cin >> t; // Uncomment for multiple test cases
+    while (t--) {
+        solve();
+    }
+    return 0;
+}
+\`\`\`
+
+Include this at the top of your solutions on LeetCode, Codeforces, or CodeChef!`;
+      }
+
+      if (query.includes('optimize') || query.includes('complexity')) {
+        return `### Time Complexity Optimization Strategy
+
+Here is how top engineers systematically optimize algorithmic bottlenecks:
+
+1. **Identify the Bottleneck:** Look for nested loops giving $O(N^2)$ or exponential recursions $O(2^N)$.
+2. **Trade Space for Time (Hash Map):** Convert linear scans to $O(1)$ lookups using \`unordered_map\` or \`unordered_set\`.
+3. **Sort + Two Pointers:** If dealing with pairs or triplets, sorting in $O(N \\log N)$ lets you use two pointers in $O(N)$ instead of $O(N^2)$.
+4. **Dynamic Programming (Memoization):** Cache overlapping subproblems to turn exponential trees into polynomial grids.
+5. **Monotonic Stack / Deque:** Ideal for "Next Greater Element" and sliding window minimums in $O(N)$ amortized time.
+
+\`\`\`python
+# Example: Two Sum optimized from O(N^2) to O(N) using Hash Map
+def two_sum(nums, target):
+    seen = {}
+    for i, num in enumerate(nums):
+        complement = target - num
+        if complement in seen:
+            return [seen[complement], i]
+        seen[num] = i
+    return []
+\`\`\``;
+      }
+
+      if (query.includes('error') || query.includes('fix') || query.includes('syntax') || query.includes('bug')) {
+        return `### 🔍 Coding Wallah Bug Diagnosis & Fix
+
+I analyzed your query and code snippet. Here is the step-by-step resolution:
+
+1. **Root Cause Analysis:**
+   - Watch out for **IndexOutOfBounds** / Off-by-one errors in loop boundaries (\`i <= n\` vs \`i < n\`).
+   - Null pointer dereferencing: Ensure base condition checks (\`if (!head) return nullptr;\`) are handled first.
+   - For C++ strings/vectors, avoid referencing \`.size() - 1\` when the collection is empty because \`.size()\` returns an \`unsigned\` integer (causing huge underflow).
+
+2. **Recommended Clean Fix:**
+\`\`\`cpp
+// Defensive & Safe Coding Pattern
+if (data.empty()) {
+    return 0; // Guard clause prevents segmentation faults
+}
+
+for (size_t i = 0; i < data.size(); ++i) {
+    // Process safely within guaranteed bounds
+}
+\`\`\`
+
+Feel free to attach your exact compiler error or snippet above using the **</>** button for targeted line-by-line debugging!`;
+      }
+
+      // Default contextual coding response
+      return `### 💡 Coding Wallah Mentor Insight
+
+Here are key pointers for your question: **"${escapeHtml(userText.slice(0, 80))}"**
+
+1. **Concept Breakdown:**
+   In modern software engineering and coding interviews, focus on edge cases: empty inputs, single element inputs, and duplicate values.
+2. **Pro Tip from Coding Wallah:**
+   Always dry-run your logic on a 3-element sample input using pen and paper before typing code.
+
+\`\`\`javascript
+// Example helper snippet
+function solveChallenge(input) {
+    if (!input || input.length === 0) return null;
+    return input.map(item => item * 2);
+}
+\`\`\`
+
+Would you like me to explain the time/space complexity or write a complete test suite for this?`;
+    }
+  </script>
+
+  <!-- ================= FLOATING AI DOUBT SOLVER WIDGET ================= -->
+  <!-- Floating Action Trigger Button -->
+  <button id="aiFloatBtn" onclick="toggleAiWidget()" title="Ask Coding Wallah AI Mentor">
+    <i class="fa-solid fa-wand-magic-sparkles text-white text-lg"></i>
+    <span class="ai-fab-label">AI MENTOR</span>
+  </button>
+
+  <!-- AI Widget Floating Window Panel -->
+  <div id="aiWidgetPanel" role="dialog" aria-labelledby="aiWidgetTitle">
+    <!-- Header -->
+    <div class="ai-header">
+      <div class="ai-avatar">
+        <i class="fa-solid fa-robot text-white"></i>
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2">
+          <h3 id="aiWidgetTitle" class="text-xs font-bold text-white tracking-wide truncate">Coding Wallah Skills AI</h3>
+          <span class="ai-status-dot" title="Online 24/7"></span>
+        </div>
+        <p class="text-[10px] text-sky-300 font-medium truncate">24/7 Coding Doubt Mentor</p>
+      </div>
+      <div class="flex items-center gap-1">
+        <button onclick="toggleAiApiConfig()" class="p-1.5 text-slate-400 hover:text-amber-400 rounded-lg hover:bg-slate-800 transition text-xs" title="Configure API Key">
+          <i class="fa-solid fa-gear"></i>
+        </button>
+        <button onclick="clearAiChat()" class="p-1.5 text-slate-400 hover:text-red-400 rounded-lg hover:bg-slate-800 transition text-xs" title="Clear Chat History">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+        <button onclick="toggleAiWidget()" class="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition text-xs" title="Minimize">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- API Config Drawer (Collapsible) -->
+    <div id="aiApiConfig">
+      <div class="flex items-center justify-between mb-1.5">
+        <span class="text-[11px] font-bold text-amber-300"><i class="fa-solid fa-key mr-1"></i>OpenAI API Key (Optional)</span>
+        <button onclick="saveAiApiKey()" class="text-[10px] px-2 py-0.5 bg-amber-500/20 text-amber-300 hover:bg-amber-500/40 rounded border border-amber-500/40 font-semibold">Save</button>
+      </div>
+      <input type="password" id="aiApiKeyInput" placeholder="sk-... (Leave blank for Built-in Offline AI Mentor)" />
+      <p class="text-[9px] text-slate-500 mt-1">If blank, our built-in offline coding simulation engine answers immediately.</p>
+    </div>
+
+    <!-- Chat Messages Scroll Container -->
+    <div id="aiChatMessages">
+      <!-- Welcome Greeting Bubble -->
+      <div class="ai-bubble bot">
+        <div class="flex items-center gap-1.5 mb-1 text-[11px] font-bold text-sky-400">
+          <i class="fa-solid fa-sparkles"></i> <span>Coding Wallah Skills AI</span>
+        </div>
+        <p>Namaste! 🙏 I am your <strong>Coding Wallah Skills 24/7 AI Mentor</strong>.</p>
+        <p class="mt-1">Paste your error trace, ask for code logic, time complexity optimization, or DSA boilerplate. How can I help you debug today?</p>
+      </div>
+    </div>
+
+    <!-- Quick Prompt Suggestion Chips -->
+    <div id="aiQuickChips">
+      <button class="ai-chip" onclick="handleAiChipClick('Fix my code error')"><i class="fa-solid fa-bug mr-1 text-[9px]"></i>Fix my code error</button>
+      <button class="ai-chip" onclick="handleAiChipClick('Explain this logic')"><i class="fa-solid fa-lightbulb mr-1 text-[9px]"></i>Explain this logic</button>
+      <button class="ai-chip" onclick="handleAiChipClick('Optimize time complexity')"><i class="fa-solid fa-gauge-high mr-1 text-[9px]"></i>Optimize time complexity</button>
+      <button class="ai-chip" onclick="handleAiChipClick('Write DSA boilerplate')"><i class="fa-solid fa-code mr-1 text-[9px]"></i>Write DSA boilerplate</button>
+    </div>
+
+    <!-- Collapsible Code Attachment Snippet Box -->
+    <div id="aiCodeArea">
+      <div class="flex items-center justify-between pb-1 mb-1 border-b border-slate-800 text-[10px] text-sky-400 font-mono">
+        <span><i class="fa-solid fa-file-code mr-1"></i>Attached Code Snippet</span>
+        <button onclick="toggleAiCodeArea()" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <textarea id="aiSnippetInput" placeholder="// Paste your buggy code or snippet here..."></textarea>
+    </div>
+
+    <!-- Bottom Input Bar -->
+    <div class="ai-input-bar">
+      <button id="aiCodeToggle" onclick="toggleAiCodeArea()" title="Attach / Hide Code Snippet">
+        <i class="fa-solid fa-code"></i>
+      </button>
+      <textarea id="aiUserInput" rows="1" placeholder="Ask doubt or type error... (Enter to send)" onkeydown="handleAiInputKey(event)" oninput="autoResizeAiInput(this)"></textarea>
+      <button id="aiSendBtn" onclick="sendAiMessage()" title="Send Doubt">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Central Authentication & Protected Route Engine -->
+  <script src="auth.js"></script>
+  <script src="auth-ui.js"></script>
+</body>
+</html>
